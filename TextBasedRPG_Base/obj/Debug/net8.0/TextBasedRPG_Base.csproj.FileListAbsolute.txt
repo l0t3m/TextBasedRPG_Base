@@ -1,0 +1,14 @@
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.GeneratedMSBuildEditorConfig.editorconfig
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.AssemblyInfoInputs.cache
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.AssemblyInfo.cs
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.csproj.CoreCompileInputs.cache
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.exe
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.deps.json
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.runtimeconfig.json
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.dll
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.pdb
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.dll
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\refint\TextBasedRPG_Base.dll
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.pdb
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.genruntimeconfig.cache
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\ref\TextBasedRPG_Base.dll
