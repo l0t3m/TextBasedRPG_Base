@@ -176,8 +176,5 @@ namespace TextBasedRPG_Base.MainClasses
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(text.Substring(index + targetText.Length, text.Length - index - targetText.Length));
         }
-
-
-
     }
 }

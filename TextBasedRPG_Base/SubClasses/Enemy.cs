@@ -10,7 +10,8 @@ namespace TextBasedRPG_Base.SubClasses
     public class Enemy : Character
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
-        public Enemy(string name, int maxHP) : base(name, maxHP) 
+        public Enemy(string name, int maxHP, int baseDMG, Weapon weapon, int level) 
+            : base(name, maxHP, baseDMG, new Weapon[] { weapon }, level) 
         {
             // needs to start with weapons: 1 random weapon.
             // needs to have an empty list of 1 prop (distract).
@@ -30,8 +31,5 @@ namespace TextBasedRPG_Base.SubClasses
 
 
         // ------------------------------------- TEMP: ------------------------------------- //
-
-
-
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using TextBasedRPG_Base.SubClasses;
 
 namespace TextBasedRPG_Base.MainClasses
 {
@@ -12,18 +14,37 @@ namespace TextBasedRPG_Base.MainClasses
         protected string name;
         public int HP { protected set; get; }
         protected int maxHP;
-        // weapons
+        protected int baseDMG { set; get; }
+        public Weapon[] weapons { protected set; get; }
         // props
         public bool isAlive { protected set; get; }
+        public int level { protected set; get; }
 
-        public Character(string name, int maxHP) // add weapon[] + prop[]
+
+        public Character(string name, int maxHP, int baseDMG, Weapon[] weapons, int level) // for Enemy and Boss class.
         {
             this.name = name;
             this.maxHP = maxHP;
             this.HP = maxHP;
-            // weapons
+            this.isAlive = true;
+            this.level = level;
+
+            this.baseDMG = baseDMG;
+            this.weapons = weapons;
             // props
-            isAlive = true;
+        }
+        
+        public Character(string name, int maxHP, int baseDMG, int weaponSlots) // for Player class.
+        {
+            this.name = name;
+            this.maxHP = maxHP;
+            this.HP = maxHP;
+            this.isAlive = true;
+            this.level = 1;
+
+            this.baseDMG = baseDMG;
+            this.weapons = new Weapon[weaponSlots];
+            // props
         }
 
 
@@ -49,19 +70,22 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // ------------------------------------- TEMP: ------------------------------------- //
-        public void PrintStats()
+        public virtual void PrintStats()
         {
             Console.WriteLine("\n-----------------------------");
-            Console.WriteLine($"name = {this.name}");
-            Console.WriteLine($"maxHP = {this.maxHP}");
-            Console.WriteLine($"HP = {this.HP}");
-            Console.WriteLine($"isAlive = {this.isAlive}");
-            // weapons
+            Console.WriteLine($"{this.name} ({(this.isAlive == true ? "Alive" : "Dead")})");
+            Console.WriteLine($"{this.HP} / {this.maxHP} HP");
+            Console.WriteLine($"level {this.level}");
+            Console.WriteLine($"{this.weapons.Length} weapon slots");
+
+            foreach (Weapon weapon in this.weapons)
+            {
+                if (weapon != null)
+                    weapon.PrintWeapon();
+            }
+
             // props
             Console.WriteLine("-----------------------------\n");
         }
-
-
-
     }
 }

@@ -15,20 +15,16 @@
       "RelativeMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|solutionrelative:textbasedrpg_base\\subclasses\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|d:\\! files\\- rar\\! tiltan\\! project\\textbasedrpg_base\\textbasedrpg_base\\subclasses\\boss.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|solutionrelative:textbasedrpg_base\\subclasses\\boss.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|d:\\! files\\- rar\\! tiltan\\! project\\textbasedrpg_base\\textbasedrpg_base\\mainclasses\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|solutionrelative:textbasedrpg_base\\mainclasses\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|d:\\! files\\- rar\\! tiltan\\! project\\textbasedrpg_base\\textbasedrpg_base\\mainclasses\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|solutionrelative:textbasedrpg_base\\mainclasses\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|d:\\! files\\- rar\\! tiltan\\! project\\textbasedrpg_base\\textbasedrpg_base\\subclasses\\boss.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|solutionrelative:textbasedrpg_base\\subclasses\\boss.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|d:\\! files\\- rar\\! tiltan\\! project\\textbasedrpg_base\\textbasedrpg_base\\mainclasses\\navigation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|solutionrelative:textbasedrpg_base\\mainclasses\\navigation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|d:\\! files\\- rar\\! tiltan\\! project\\textbasedrpg_base\\textbasedrpg_base\\subclasses\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E63855AD-765B-40A2-8BF1-03B42F2FC61A}|TextBasedRPG_Base\\TextBasedRPG_Base.csproj|solutionrelative:textbasedrpg_base\\subclasses\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,47 +34,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Boss.cs",
-              "DocumentMoniker": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\SubClasses\\Boss.cs",
-              "RelativeDocumentMoniker": "TextBasedRPG_Base\\SubClasses\\Boss.cs",
-              "ToolTip": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\SubClasses\\Boss.cs",
-              "RelativeToolTip": "TextBasedRPG_Base\\SubClasses\\Boss.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA8AAABFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-27T14:00:46.038Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Room.cs",
-              "DocumentMoniker": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\MainClasses\\Room.cs",
-              "RelativeDocumentMoniker": "TextBasedRPG_Base\\MainClasses\\Room.cs",
-              "ToolTip": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\MainClasses\\Room.cs",
-              "RelativeToolTip": "TextBasedRPG_Base\\MainClasses\\Room.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-27T13:55:29.584Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Navigation.cs",
-              "DocumentMoniker": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\MainClasses\\Navigation.cs",
-              "RelativeDocumentMoniker": "TextBasedRPG_Base\\MainClasses\\Navigation.cs",
-              "ToolTip": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\MainClasses\\Navigation.cs",
-              "RelativeToolTip": "TextBasedRPG_Base\\MainClasses\\Navigation.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAABoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-27T13:54:25.96Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -87,9 +44,35 @@
               "RelativeDocumentMoniker": "TextBasedRPG_Base\\SubClasses\\Enemy.cs",
               "ToolTip": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\SubClasses\\Enemy.cs",
               "RelativeToolTip": "TextBasedRPG_Base\\SubClasses\\Enemy.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAABHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-27T13:49:06.521Z",
+              "WhenOpened": "2024-07-27T17:27:28.362Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Boss.cs",
+              "DocumentMoniker": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\SubClasses\\Boss.cs",
+              "RelativeDocumentMoniker": "TextBasedRPG_Base\\SubClasses\\Boss.cs",
+              "ToolTip": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\SubClasses\\Boss.cs",
+              "RelativeToolTip": "TextBasedRPG_Base\\SubClasses\\Boss.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAuwAwAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-27T17:23:34.447Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Weapon.cs",
+              "DocumentMoniker": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\SubClasses\\Weapon.cs",
+              "RelativeDocumentMoniker": "TextBasedRPG_Base\\SubClasses\\Weapon.cs",
+              "ToolTip": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\SubClasses\\Weapon.cs",
+              "RelativeToolTip": "TextBasedRPG_Base\\SubClasses\\Weapon.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAADgvyYAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-27T16:47:22.008Z",
               "EditorCaption": ""
             },
             {
@@ -100,22 +83,22 @@
               "RelativeDocumentMoniker": "TextBasedRPG_Base\\Program.cs",
               "ToolTip": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\Program.cs",
               "RelativeToolTip": "TextBasedRPG_Base\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T11:22:00.895Z",
+              "WhenOpened": "2024-07-27T16:46:54.007Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Character.cs",
               "DocumentMoniker": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\MainClasses\\Character.cs",
               "RelativeDocumentMoniker": "TextBasedRPG_Base\\MainClasses\\Character.cs",
               "ToolTip": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\MainClasses\\Character.cs",
               "RelativeToolTip": "TextBasedRPG_Base\\MainClasses\\Character.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA8AAAAQAAAA",
+              "ViewState": "AQIAADsAAAAAAAAAAAA1wFIAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-27T12:48:54.121Z",
+              "WhenOpened": "2024-07-27T16:41:00.463Z",
               "EditorCaption": ""
             },
             {
@@ -126,9 +109,9 @@
               "RelativeDocumentMoniker": "TextBasedRPG_Base\\SubClasses\\Player.cs",
               "ToolTip": "D:\\! Files\\- Rar\\! Tiltan\\! Project\\TextBasedRPG_Base\\TextBasedRPG_Base\\SubClasses\\Player.cs",
               "RelativeToolTip": "TextBasedRPG_Base\\SubClasses\\Player.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABwAAAAAAAAA",
+              "ViewState": "AQIAABgAAAAAAAAAAAA4wC0AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-27T13:23:03.022Z",
+              "WhenOpened": "2024-07-27T16:05:46.211Z",
               "EditorCaption": ""
             }
           ]

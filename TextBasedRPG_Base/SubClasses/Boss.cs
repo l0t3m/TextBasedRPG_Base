@@ -10,9 +10,9 @@ namespace TextBasedRPG_Base.SubClasses
     public class Boss : Character
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
-        public Boss(string name, int maxHP) : base(name, maxHP)
+        public Boss(string name, int maxHP, int baseDMG, Weapon weapon, int level) 
+            : base(name, maxHP, baseDMG, new Weapon[] {weapon}, level)
         {
-            // needs to start with weapons: 1 weapon.
             // needs to have a list of 2 props. (heal, weaken player)
         }
 
@@ -32,8 +32,5 @@ namespace TextBasedRPG_Base.SubClasses
 
 
         // ------------------------------------- TEMP: ------------------------------------- //
-
-
-
     }
 }
