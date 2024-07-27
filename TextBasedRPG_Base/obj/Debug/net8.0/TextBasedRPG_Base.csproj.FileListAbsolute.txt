@@ -12,3 +12,4 @@ D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debu
 D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.pdb
 D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.genruntimeconfig.cache
 D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\ref\TextBasedRPG_Base.dll
+D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.sourcelink.json

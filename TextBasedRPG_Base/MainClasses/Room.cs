@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextBasedRPG_Base
+namespace TextBasedRPG_Base.MainClasses
 {
     public class Room
     {
@@ -12,9 +12,9 @@ namespace TextBasedRPG_Base
         public Room[] ConnectedRooms { get; set; } // add room descriptions
         public string[] PropsArr { get; set; } // transfer props into a class
 
-        public Room(string name) 
-        { 
-            this.Name = name;
+        public Room(string name)
+        {
+            Name = name;
         }
     }
 }

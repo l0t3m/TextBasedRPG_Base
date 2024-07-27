@@ -5,7 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextBasedRPG_Base
+namespace TextBasedRPG_Base.MainClasses
 {
     public static class Navigation
     {
@@ -27,7 +27,7 @@ namespace TextBasedRPG_Base
         public static void SetupRooms()
         {
             // ConnectedRooms to each room.
-            EntranceArea.ConnectedRooms =  [Koda, LivingRoom, DiningTable, Hallway];
+            EntranceArea.ConnectedRooms = [Koda, LivingRoom, DiningTable, Hallway];
             Koda.ConnectedRooms = [Toilet, Stairs, EntranceArea];
             Toilet.ConnectedRooms = [Koda];
             Stairs.ConnectedRooms = [Koda];
@@ -52,7 +52,7 @@ namespace TextBasedRPG_Base
 
         // ------------------------------------------------------------------ //
 
-        public static void Explore()
+        public static void Explore() // The main function of this class.
         {
             PrintRoom();
 
@@ -87,7 +87,7 @@ namespace TextBasedRPG_Base
             Dictionary<int, Room> roomDict = new Dictionary<int, Room>();
             int counter = 2;
 
-            Console.WriteLine($"1. Go back.");
+            Console.WriteLine($"1. Stay.");
             // Add a (boss) warning and prevent access to Koda's room.
             foreach (Room room in currentRoom.ConnectedRooms)
             {
