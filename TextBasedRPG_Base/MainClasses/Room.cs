@@ -8,6 +8,7 @@ namespace TextBasedRPG_Base.MainClasses
 {
     public class Room
     {
+        // -------------------------- Attributes and Constructors: -------------------------- //
         public string Name { get; }
         public Room[] ConnectedRooms { get; set; } // add room descriptions
         public string[] PropsArr { get; set; } // transfer props into a class
@@ -16,5 +17,17 @@ namespace TextBasedRPG_Base.MainClasses
         {
             Name = name;
         }
+
+
+
+
+        // ------------------------------------ Methods: ------------------------------------ //
+
+
+
+        // ------------------------------------- TEMP: ------------------------------------- //
+
+
+
     }
 }

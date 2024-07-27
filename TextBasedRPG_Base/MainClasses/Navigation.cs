@@ -9,6 +9,7 @@ namespace TextBasedRPG_Base.MainClasses
 {
     public static class Navigation
     {
+        // -------------------------- Attributes and Constructors: -------------------------- //
         private static Room EntranceArea = new Room("the entrance area");
         private static Room Koda = new Room("Koda's territory");
         private static Room Toilet = new Room("the toilet");
@@ -22,8 +23,9 @@ namespace TextBasedRPG_Base.MainClasses
 
         private static Room currentRoom { get; set; }
 
-        // ------------------------------------------------------------------ //
 
+
+        // ------------------------------------- Setup: ------------------------------------- //
         public static void SetupRooms()
         {
             // ConnectedRooms to each room.
@@ -50,8 +52,9 @@ namespace TextBasedRPG_Base.MainClasses
             EntranceArea.PropsArr = ["DOG FOOD"];
         }
 
-        // ------------------------------------------------------------------ //
 
+
+        // ------------------------------------ Methods: ------------------------------------ //
         public static void Explore() // The main function of this class.
         {
             PrintRoom();
@@ -75,8 +78,6 @@ namespace TextBasedRPG_Base.MainClasses
                 Explore();
             }
         }
-
-        // ------------------------------------------------------------------ //
 
         private static void Move()
         {
@@ -113,8 +114,6 @@ namespace TextBasedRPG_Base.MainClasses
             }
         }
 
-        // ------------------------------------------------------------------ //
-
         private static void PrintRoom()
         {
             PrintAndColor($"You're currently in {currentRoom.Name}.", currentRoom.Name);
@@ -135,8 +134,6 @@ namespace TextBasedRPG_Base.MainClasses
             Console.WriteLine("3. Leave the room.");
         }
 
-        // ------------------------------------------------------------------ //
-
         private static void Examine()
         {
             if (currentRoom.PropsArr != null && currentRoom.PropsArr.Length > 0)
@@ -154,8 +151,6 @@ namespace TextBasedRPG_Base.MainClasses
             Console.Clear();
         }
 
-        // ------------------------------------------------------------------ //
-
         private static void Stats()
         {
             Console.WriteLine("You chose to check your stats.");
@@ -166,7 +161,9 @@ namespace TextBasedRPG_Base.MainClasses
             Console.Clear();
         }
 
-        // ------------------------------------------------------------------ //
+
+
+        // ------------------------------------- TEMP: ------------------------------------- //
 
         // move this function into another class. SceneManager (?)
         public static void PrintAndColor(string text, string targetText, ConsoleColor color = ConsoleColor.Blue)
@@ -179,5 +176,8 @@ namespace TextBasedRPG_Base.MainClasses
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(text.Substring(index + targetText.Length, text.Length - index - targetText.Length));
         }
+
+
+
     }
 }
