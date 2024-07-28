@@ -50,6 +50,9 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // ------------------------------------ Methods: ------------------------------------ //
+        /// <summary>
+        /// Adds HP to the object, considering its maxHP attribute.
+        /// </summary>
         public void AddHP(int amount)
         {
             this.HP += amount;
@@ -57,6 +60,9 @@ namespace TextBasedRPG_Base.MainClasses
                 this.HP = this.maxHP;
         }
 
+        /// <summary>
+        /// Removes HP from the object, changes its isAlive attribute if needed.
+        /// </summary>
         public void RemoveHP(int amount)
         {
             this.HP -= amount;
@@ -70,6 +76,9 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // ------------------------------------- TEMP: ------------------------------------- //
+        /// <summary>
+        /// Prints the current object's stats using its attributes.
+        /// </summary>
         public virtual void PrintStats()
         {
             Console.WriteLine("\n-----------------------------");

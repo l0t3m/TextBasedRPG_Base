@@ -13,3 +13,18 @@ D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debu
 D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.genruntimeconfig.cache
 D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\ref\TextBasedRPG_Base.dll
 D:\! Files\- Rar\! Tiltan\! Project\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.sourcelink.json
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.exe
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.deps.json
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.runtimeconfig.json
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.dll
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\bin\Debug\net8.0\TextBasedRPG_Base.pdb
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.AssemblyInfoInputs.cache
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.AssemblyInfo.cs
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.csproj.CoreCompileInputs.cache
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.sourcelink.json
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.dll
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\refint\TextBasedRPG_Base.dll
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.pdb
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\TextBasedRPG_Base.genruntimeconfig.cache
+C:\Users\lotem\OneDrive\מסמכים\GitHub\TextBasedRPG_Base\TextBasedRPG_Base\obj\Debug\net8.0\ref\TextBasedRPG_Base.dll

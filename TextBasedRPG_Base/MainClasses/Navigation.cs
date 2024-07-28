@@ -26,6 +26,9 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // ------------------------------------- Setup: ------------------------------------- //
+        /// <summary>
+        /// Creates all of the first floor Room objects.
+        /// </summary>
         public static void SetupRooms()
         {
             // ConnectedRooms to each room.
@@ -55,7 +58,10 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // ------------------------------------ Methods: ------------------------------------ //
-        public static void Explore() // The main function of this class.
+        /// <summary>
+        /// The main function of this clas, manages the exploring mode.
+        /// </summary>
+        public static void Explore()
         {
             PrintRoom();
 
