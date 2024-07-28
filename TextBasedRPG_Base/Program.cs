@@ -5,6 +5,8 @@ using TextBasedRPG_Base.SubClasses;
 
 
 bool isPlaying = true;
+
+Player player = new Player("lotem");
 Navigation.SetupRooms();
 
 while (isPlaying)

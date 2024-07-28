@@ -57,16 +57,21 @@ namespace TextBasedRPG_Base.SubClasses
 
 
         // ----------------------------------- XP Methods: ----------------------------------- //
-        private int CalculateNextLevelXP() // Returns how much xp is needed until the next level.
+        /// <returns>How much XP is needed until the next level.</returns>
+        private int CalculateNextLevelXP()
         {
             return (int)(this.level * 9 + (Math.Pow(this.level, 2)));
         }
 
-        private int CalculateUntilNextLevelXP() // Uses the current xp to calculate how much xp is needed to level up.
+        /// <returns> How much XP is needed to level up, using the current xp of the object.</returns>
+        private int CalculateUntilNextLevelXP()
         {
             return CalculateNextLevelXP() - this.xp;
         }
 
+        /// <summary>
+        /// Adds XP to the object and levels up accordingly.
+        /// </summary>
         public void GainXP(int xpAmount)
         {
             this.xp += xpAmount;
@@ -80,6 +85,9 @@ namespace TextBasedRPG_Base.SubClasses
             }
         }
 
+        /// <summary>
+        /// Levels up the player and changes its stats accordingly.
+        /// </summary>
         private void LevelUp()
         {
             this.level++;
@@ -90,6 +98,9 @@ namespace TextBasedRPG_Base.SubClasses
 
         // ------------------------------------- TEMP: ------------------------------------- //
 
+        /// <summary>
+        /// Prints the current object's stats using its attributes.
+        /// </summary>
         public override void PrintStats()
         {
             Console.WriteLine("\n-----------------------------");
