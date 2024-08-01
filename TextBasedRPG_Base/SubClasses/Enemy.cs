@@ -3,33 +3,72 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using TextBasedRPG_Base.MainClasses;
 
 namespace TextBasedRPG_Base.SubClasses
 {
+    public enum EnemyType
+    {
+        Cockroach,
+        Cricket,
+        Snail
+    }
+
     public class Enemy : Character
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
-        public Enemy(string name, int maxHP, int baseDMG, Weapon weapon, int level) 
-            : base(name, maxHP, baseDMG, new Weapon[] { weapon }, level) 
+        private Enemy(string name, int maxHP, int baseDMG, int level) 
+            : base(name, maxHP, baseDMG, null, level) 
         {
-            // needs to start with weapons: 1 random weapon.
-            // needs to have an empty list of 1 prop (distract).
+            this.name = name;
+        }
+
+
+        public static Enemy GenerateNewEnemy()
+        {
+            int level = Random.Shared.Next(SceneManager.currentRoom.minLevel, SceneManager.currentRoom.maxLevel + 1);
+
+            return new Enemy(
+                name: GenerateName(),
+                maxHP: GenerateMaxHP(level),
+                baseDMG: GenerateBaseDMG(level),
+                level: level
+                );
         }
 
 
 
         // ------------------------------------ Methods: ------------------------------------ //
 
-        // add generate enemy
-            // generates a random enemy according to the player's stats
-            // gives it a random weapon
+        private static string GenerateName()
+        {
+            var values = Enum.GetValues<EnemyType>();
+            var colors = new string[] { "Blue", "Red", "Brown", "Black" };
 
-            // name - random name generator
-            // maxHP - according to area / player
+            return $"{colors[Random.Shared.Next(colors.Length)]} {values.GetValue(Random.Shared.Next(values.Length))}";
+        }
 
+        private static int GenerateMaxHP(int level)
+        {
+            return 5+3*(level-1);
+        }
+
+        private static int GenerateBaseDMG(int level)
+        {
+            return (int)Math.Pow(2, (level-1)/1.5);
+        }
 
 
         // ------------------------------------- TEMP: ------------------------------------- //
+        public virtual void PrintStats()
+        {
+            Console.WriteLine("\n-----------------------------");
+            Console.WriteLine($"{this.name} ({(this.isAlive == true ? "Alive" : "Dead")})");
+            Console.WriteLine($"{this.HP} / {this.maxHP} HP");
+            Console.WriteLine($"level {this.level}");
+            Console.WriteLine($"{this.baseDMG} baseDMG");
+            Console.WriteLine("-----------------------------\n");
+        }
     }
 }

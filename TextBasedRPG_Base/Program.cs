@@ -1,19 +1,42 @@
-﻿using System.Xml.Linq;
+﻿using System.Diagnostics.Metrics;
+using System.Xml.Linq;
 using TextBasedRPG_Base.MainClasses;
 using TextBasedRPG_Base.SubClasses;
 
 
+Navigation.SetupRooms();
+
+SceneManager.player.AddWeapon(new Weapon("test weapon 1", 10, 10));
+
+
+
+
+
+//Dictionary<int, Room> roomDict = new Dictionary<int, Room>();
+//int counter = 0;
+
+//foreach (Room room in SceneManager.currentRoom.ConnectedRooms)
+//{
+//    roomDict.Add(counter, room);
+//    counter++;
+//}
+
+//SceneManager.currentRoom = roomDict[2];
+//Console.WriteLine(SceneManager.currentRoom.Name);
+
+//Enemy enemy = Enemy.GenerateNewEnemy();
+//enemy.PrintStats();
 
 bool isPlaying = true;
-Navigation.SetupRooms();
+
+
 
 while (isPlaying)
 {
     Navigation.Explore();
 }
 
-//Player player = new Player("lotem");
-//player.AddWeapon(new Weapon("weapon1", 10, 10));
+//
 //player.PrintStats();
 
 //player.GainXP(4000);

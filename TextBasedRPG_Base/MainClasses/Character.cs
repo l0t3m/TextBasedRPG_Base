@@ -11,17 +11,17 @@ namespace TextBasedRPG_Base.MainClasses
     public abstract class Character
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
-        protected string name;
+        public string name { protected set;  get; }
         public int HP { protected set; get; }
         protected int maxHP;
         protected int baseDMG { set; get; }
         public Weapon[] weapons { protected set; get; }
-        // props
+        // item
         public bool isAlive { protected set; get; }
         public int level { protected set; get; }
 
 
-        public Character(string name, int maxHP, int baseDMG, Weapon[] weapons, int level) // for Enemy and Boss class.
+        public Character(string name, int maxHP, int baseDMG, Weapon[] weapons, int level) // for Boss class.
         {
             this.name = name;
             this.maxHP = maxHP;
@@ -31,9 +31,9 @@ namespace TextBasedRPG_Base.MainClasses
 
             this.baseDMG = baseDMG;
             this.weapons = weapons;
-            // props
+            // item
         }
-        
+
         public Character(string name, int maxHP, int baseDMG, int weaponSlots) // for Player class.
         {
             this.name = name;
@@ -44,7 +44,7 @@ namespace TextBasedRPG_Base.MainClasses
 
             this.baseDMG = baseDMG;
             this.weapons = new Weapon[weaponSlots];
-            // props
+            // item
         }
 
 
@@ -84,7 +84,7 @@ namespace TextBasedRPG_Base.MainClasses
                     weapon.PrintWeapon();
             }
 
-            // props
+            // items
             Console.WriteLine("-----------------------------\n");
         }
     }

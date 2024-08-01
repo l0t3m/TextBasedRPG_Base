@@ -11,11 +11,31 @@ namespace TextBasedRPG_Base.MainClasses
         // -------------------------- Attributes and Constructors: -------------------------- //
         public string Name { get; }
         public Room[] ConnectedRooms { get; set; } // add room descriptions
-        public string[] PropsArr { get; set; } // transfer props into a class
+
+        public bool isDangerous { get; }
+        public bool discoveredIfDangerous { get; set; }
+
+        public int minLevel { get; set; }
+        public int maxLevel { get; set; }
+
+
+
+        public string[] ItemsArr { get; set; } // transfer props into a class
 
         public Room(string name)
         {
             Name = name;
+            this.isDangerous = false;
+            this.discoveredIfDangerous = false;
+        }
+
+        public Room(string name, int minLevel, int maxLevel)
+        {
+            Name = name;
+            this.isDangerous = true;
+            this.discoveredIfDangerous = false;
+            this.minLevel = minLevel;
+            this.maxLevel = maxLevel;
         }
 
 

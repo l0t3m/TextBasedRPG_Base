@@ -13,9 +13,9 @@ namespace TextBasedRPG_Base.SubClasses
         public int xp {  get; private set; }
 
         public Player(string name) 
-            : base(name: name, maxHP: 25, baseDMG: 10, weaponSlots: 3)
+            : base(name: name, maxHP: 10, baseDMG: 2, weaponSlots: 3)
         {
-            // needs to have an empty list of 5 props.
+            // needs to have an empty list of 5 items.
             this.xp = 0;
         }
 
@@ -27,8 +27,8 @@ namespace TextBasedRPG_Base.SubClasses
             this.maxHP += amount;
         }
 
-        //public void addProp(PROP) { }
-        //public void removeProp(PROP) { }
+        //public void addItem(ITEM) { }
+        //public void removeItem(ITEM) { }
 
         /// <summary> Adds a weapon to the first empty slot. </summary>
         /// <returns> True if added successfully, False if there is no empty slots. </returns>
@@ -97,6 +97,7 @@ namespace TextBasedRPG_Base.SubClasses
             Console.WriteLine($"{this.HP} / {this.maxHP} HP");
             Console.WriteLine($"level {this.level} ({this.xp} / {CalculateNextLevelXP()})");
             Console.WriteLine($"{this.weapons.Length} weapon slots");
+            Console.WriteLine($"{this.baseDMG} baseDMG");
 
             foreach (Weapon weapon in this.weapons)
             {
@@ -104,7 +105,7 @@ namespace TextBasedRPG_Base.SubClasses
                     weapon.PrintWeapon();
             }
 
-            // props
+            // items
             Console.WriteLine("-----------------------------\n");
         }
     }

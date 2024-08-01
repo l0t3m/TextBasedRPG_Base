@@ -13,7 +13,7 @@ namespace TextBasedRPG_Base.SubClasses
         public Boss(string name, int maxHP, int baseDMG, Weapon weapon, int level) 
             : base(name, maxHP, baseDMG, new Weapon[] {weapon}, level)
         {
-            // needs to have a list of 2 props. (heal, weaken player)
+            // needs to have a list of 2 items. (heal, weaken player)
         }
 
 
