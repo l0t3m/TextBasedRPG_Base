@@ -22,13 +22,38 @@ namespace TextBasedRPG_Base.SubClasses
 
 
         // ------------------------------------ Methods: ------------------------------------ //
+        public void AttackEnemy()
+        {
+            Enemy enemy = SceneManager.currentEnemy;
+            Player player = SceneManager.player;
+
+            if (enemy != null) 
+            {
+                Prints.PrintAndColor($"You've dealt {player.baseDMG} DMG to the {enemy.name}.", $"{player.baseDMG} DMG", ConsoleColor.Red);
+                enemy.RemoveHP(player.baseDMG);
+
+                if (enemy.isAlive == false)
+                {
+                    player.GainXP(enemy.CalculateXPWorth());
+                }
+            }
+        }
+        
+
+
         public void AddMaxHP(int amount)
         {
             this.maxHP += amount;
         }
 
+        public void AddBaseDMG(int amount)
+        {
+            this.baseDMG += amount;
+        }
+
         //public void addItem(ITEM) { }
         //public void removeItem(ITEM) { }
+
 
         /// <summary> Adds a weapon to the first empty slot. </summary>
         /// <returns> True if added successfully, False if there is no empty slots. </returns>
@@ -44,6 +69,7 @@ namespace TextBasedRPG_Base.SubClasses
             }
             return false;
         }
+
 
         /// <summary> Puts the given weapon in the desired index. </summary>
         /// <returns> The replaced weapon. </returns>
@@ -83,7 +109,8 @@ namespace TextBasedRPG_Base.SubClasses
         private void LevelUp()
         {
             this.level++;
-            // change the player's stats according to the level.
+            this.AddMaxHP((int)(this.maxHP * 0.5));
+            this.AddBaseDMG((int)(this.baseDMG * 0.75));
         }
 
 

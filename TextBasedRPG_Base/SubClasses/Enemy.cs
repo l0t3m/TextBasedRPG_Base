@@ -41,6 +41,18 @@ namespace TextBasedRPG_Base.SubClasses
 
         // ------------------------------------ Methods: ------------------------------------ //
 
+        public void AttackPlayer()
+        {
+            Enemy enemy = SceneManager.currentEnemy;
+            Player player = SceneManager.player;
+
+            if (enemy != null)
+            {
+                Prints.PrintAndColor($"{enemy.name} has dealt {enemy.baseDMG} DMG to you.", $"{enemy.baseDMG} DMG", ConsoleColor.Red);
+                player.RemoveHP(player.baseDMG);
+            }
+        }
+
         private static string GenerateName()
         {
             var values = Enum.GetValues<EnemyType>();
@@ -57,6 +69,11 @@ namespace TextBasedRPG_Base.SubClasses
         private static int GenerateBaseDMG(int level)
         {
             return (int)Math.Pow(2, (level-1)/1.5);
+        }
+
+        public int CalculateXPWorth()
+        {
+            return this.level * 5 * Random.Shared.Next(1, 3);
         }
 
 

@@ -4,9 +4,31 @@ using TextBasedRPG_Base.MainClasses;
 using TextBasedRPG_Base.SubClasses;
 
 
+// Setups: //
 Navigation.SetupRooms();
 
+// temp: //
 SceneManager.player.AddWeapon(new Weapon("test weapon 1", 10, 10));
+//SceneManager.player.AddMaxHP(2000);
+//SceneManager.player.AddHP(2000);
+
+
+
+
+bool isPlaying = true;
+
+while (isPlaying)
+{
+    //SceneManager.MainMenu();
+
+    if (SceneManager.player.isAlive == true)
+        Navigation.Explore();
+    else
+        SceneManager.GameOver();
+}
+
+
+
 
 
 
@@ -27,14 +49,6 @@ SceneManager.player.AddWeapon(new Weapon("test weapon 1", 10, 10));
 //Enemy enemy = Enemy.GenerateNewEnemy();
 //enemy.PrintStats();
 
-bool isPlaying = true;
-
-
-
-while (isPlaying)
-{
-    Navigation.Explore();
-}
 
 //
 //player.PrintStats();

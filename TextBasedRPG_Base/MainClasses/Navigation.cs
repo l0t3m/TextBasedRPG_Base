@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using TextBasedRPG_Base.SubClasses;
 
 namespace TextBasedRPG_Base.MainClasses
 {
@@ -39,6 +40,7 @@ namespace TextBasedRPG_Base.MainClasses
             Miklat.ConnectedRooms = [Hallway];
 
             SceneManager.currentRoom = EntranceArea;
+            Koda.isBossRoom = true;
 
             // Description of the room.
             // --WIP--
@@ -53,9 +55,9 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // ------------------------------------ Methods: ------------------------------------ //
-        public static void Explore() // The main function of this class.
+        public static void Explore()
         {
-            PrintRoom();
+            Prints.PrintRoom();
 
             try
             {
@@ -67,11 +69,12 @@ namespace TextBasedRPG_Base.MainClasses
                     case 1:
                         Examine(); break;
                     case 2:
-                        LookForEnemies(); break;
-                    case 3:
                         Stats(); break;
-                    case 4:
+                    case 3:
                         Move(); break;
+                    case 4:
+                        if (SceneManager.currentRoom.discoveredIfDangerous && SceneManager.currentRoom.isDangerous)
+                            LookForEnemies(); break;
                 }
             }
             catch
@@ -83,18 +86,22 @@ namespace TextBasedRPG_Base.MainClasses
         private static void Move()
         {
             Console.Clear();
-            PrintRoom();
-            PrintAndColor("\nYou chose to leave the room, which path will you take?", "leave");
+            Prints.PrintRoom();
+            Prints.PrintAndColor("\nYou chose to leave the room, which path will you take?", "leave");
 
             Dictionary<int, Room> roomDict = new Dictionary<int, Room>();
             int counter = 2;
 
-            Console.WriteLine($"1. Stay.");
-            // Add a (boss) warning and prevent access to Koda's room.
+            Console.WriteLine($"1. Stay");
             foreach (Room room in SceneManager.currentRoom.ConnectedRooms)
             {
                 roomDict.Add(counter, room);
-                Console.WriteLine($"{counter}. {room.Name}");
+
+                if (room.isBossRoom)
+                    Prints.PrintAndColor($"{counter}. {room.Name} [Boss lvl.---]", "[Boss lvl.---]", ConsoleColor.Red); // add the boss lvl
+                else
+                    Console.WriteLine($"{counter}. {room.Name}");
+
                 counter++;
             }
 
@@ -107,7 +114,15 @@ namespace TextBasedRPG_Base.MainClasses
                 {
                     Explore();
                 }
-                SceneManager.currentRoom = roomDict[choice];
+                if (roomDict[choice].isBossRoom == true)
+                {
+                    // if player's level >= boss level, let in
+                    // else "Access denied, your level is too low."
+                    Console.WriteLine("Acess denied, your level is too low.");
+                    Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+                }
+                else
+                    SceneManager.currentRoom = roomDict[choice];
             }
             catch
             {
@@ -115,98 +130,42 @@ namespace TextBasedRPG_Base.MainClasses
             }
         }
 
-        private static void PrintRoom()
-        {
-            if (SceneManager.currentRoom.discoveredIfDangerous)
-            {
-                if (SceneManager.currentRoom.isDangerous)
-                    PrintAndColor($"You're currently in {SceneManager.currentRoom.Name}. [Dangerous]", SceneManager.currentRoom.Name, ConsoleColor.Red);
-                else
-                    PrintAndColor($"You're currently in {SceneManager.currentRoom.Name}. [Safe]", SceneManager.currentRoom.Name);
-            }
-            else
-            {
-                PrintAndColor($"You're currently in {SceneManager.currentRoom.Name}.", SceneManager.currentRoom.Name, ConsoleColor.DarkGray);
-            }
-
-
-            // Print the current room description.
-
-            if (SceneManager.currentRoom.ConnectedRooms.Length > 1)
-            {
-                PrintAndColor($"You notice {SceneManager.currentRoom.ConnectedRooms.Length} different paths to take.", SceneManager.currentRoom.ConnectedRooms.Length.ToString());
-            }
-            else
-            {
-                PrintAndColor($"You notice a single path you can take.", "single");
-            }
-
-            Console.WriteLine("\nWhat would you like to do?");
-            Console.WriteLine("1. Examine the room.");
-            Console.WriteLine("2. Look for enemies.");
-            Console.WriteLine("3. Check stats.");
-            Console.WriteLine("4. Leave the room.");
-        }
-
         private static void Examine()
         {
+            SceneManager.currentRoom.discoveredIfDangerous = true;
+            if (SceneManager.currentRoom.isDangerous == false)
+                Console.WriteLine("This area feels safe, enemies can't reach this area.");
+            else
+                Console.WriteLine("This area feels dangerous...");
+            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+
             if (SceneManager.currentRoom.ItemsArr != null && SceneManager.currentRoom.ItemsArr.Length > 0)
             {
-                PrintAndColor($"You found {SceneManager.currentRoom.ItemsArr[0]}.", SceneManager.currentRoom.ItemsArr[0], ConsoleColor.Yellow);
+                Prints.PrintAndColor($"You found {SceneManager.currentRoom.ItemsArr[0]}.", SceneManager.currentRoom.ItemsArr[0], ConsoleColor.Yellow);
                 // add a condition to check what to do with the item found. + switch case
             }
-            else
-            {
-                Console.WriteLine("You didn't find anything useful.");
-            }
 
-            Console.WriteLine("Press enter to continue.");
-            Console.ReadLine();
-            Console.Clear();
+            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
         }
 
         private static void LookForEnemies()
         {
-            SceneManager.currentRoom.discoveredIfDangerous = true;
-            if (SceneManager.currentRoom.isDangerous == false)
-            {
-                Console.WriteLine("This area feels safe, enemies can't reach this area.");
-                Console.ReadLine(); Console.Clear();
-                return;
-            }
-
-            //Combat.StartFight(new Enemy())
-
-            Console.WriteLine("You chose to look for enemies.");
             // insert chance to actually find an enemy.
-
-
+            if (Combat.StartFight(Enemy.GenerateNewEnemy()) == false)
+            {
+                SceneManager.GameOver();
+            }
         }
 
         private static void Stats()
         {
-            Console.WriteLine("You chose to check your stats.");
-            // add stats print in here
-
-            Console.WriteLine("Press enter to continue.");
-            Console.ReadLine();
-            Console.Clear();
+            SceneManager.player.PrintStats();
+            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
         }
         
 
 
         // ------------------------------------- TEMP: ------------------------------------- //
 
-        // move this function into another class. SceneManager (?)
-        public static void PrintAndColor(string text, string targetText, ConsoleColor color = ConsoleColor.Blue)
-        {
-            int index = text.IndexOf(targetText);
-            if (index == -1) return;
-            Console.Write(text.Substring(0, index));
-            Console.ForegroundColor = color;
-            Console.Write(text.Substring(index, targetText.Length));
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(text.Substring(index + targetText.Length, text.Length - index - targetText.Length));
-        }
     }
 }

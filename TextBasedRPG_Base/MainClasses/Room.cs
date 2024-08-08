@@ -17,6 +17,7 @@ namespace TextBasedRPG_Base.MainClasses
 
         public int minLevel { get; set; }
         public int maxLevel { get; set; }
+        public bool isBossRoom { get; set; }
 
 
 

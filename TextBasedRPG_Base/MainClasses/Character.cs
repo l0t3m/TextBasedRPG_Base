@@ -14,7 +14,7 @@ namespace TextBasedRPG_Base.MainClasses
         public string name { protected set;  get; }
         public int HP { protected set; get; }
         protected int maxHP;
-        protected int baseDMG { set; get; }
+        public int baseDMG { protected set; get; }
         public Weapon[] weapons { protected set; get; }
         // item
         public bool isAlive { protected set; get; }
@@ -60,9 +60,10 @@ namespace TextBasedRPG_Base.MainClasses
         public void RemoveHP(int amount)
         {
             this.HP -= amount;
+            
             if (this.HP <= 0)
             {
-                Console.WriteLine($"{name} has died.");
+                Prints.PrintAndColor($"{name} has died", null);
                 this.isAlive = false;
             }
         }
