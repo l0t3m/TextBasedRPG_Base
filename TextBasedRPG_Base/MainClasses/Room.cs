@@ -13,6 +13,7 @@ namespace TextBasedRPG_Base.MainClasses
         // -------------------------- Attributes and Constructors: -------------------------- //
         public string Name { get; }
         public string Description { get; set; }
+        public string ItemFindDescription { get; set; }
         public Room[] ConnectedRooms { get; set; } // add room descriptions
 
         // status related:
@@ -30,6 +31,7 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // Item related:
+        public bool canItemsSpawn { get; set; } = true;
         public string[] ItemsArr { get; set; } // transfer props into a class
 
         public ConsoleColor statusColor { get => GetStatusColor(); }

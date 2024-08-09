@@ -31,7 +31,7 @@ namespace TextBasedRPG_Base.SubClasses
 
             if (enemy != null) 
             {
-                Prints.PrintAndColor($"You've dealt {player.baseDMG} DMG to the {enemy.name}.", $"{player.baseDMG} DMG", ConsoleColor.Red);
+                Functions.PrintAndColor($"You've dealt {player.baseDMG} DMG to the {enemy.name}.", $"{player.baseDMG} DMG", ConsoleColor.Red);
                 enemy.RemoveHP(player.baseDMG);
 
                 if (enemy.isAlive == false)
@@ -45,12 +45,12 @@ namespace TextBasedRPG_Base.SubClasses
         public void AddMaxHP(int amount)
         {
             this.maxHP += amount;
-        }
+        } // remove function ?
 
         public void AddBaseDMG(int amount)
         {
             this.baseDMG += amount;
-        }
+        } // remove function ?
 
         public override void RemoveHP(int amount)
         {
@@ -58,7 +58,7 @@ namespace TextBasedRPG_Base.SubClasses
 
             if (this.HP <= 0)
             {
-                Prints.PrintAndColor($"{name} has died", null, ConsoleColor.Magenta);
+                Functions.PrintAndColor($"{name} has died", null, ConsoleColor.Magenta);
                 this.isAlive = false;
             }
         }
@@ -175,12 +175,6 @@ namespace TextBasedRPG_Base.SubClasses
             int tempBaseDMG = 2;
             for (int i = 0; i < level - 1; i++) tempBaseDMG = (int)(tempBaseDMG * 1.75);
             return tempBaseDMG;
-        }
-
-
-        public void PrintStatsSimple() // debug purpose - remove function
-        {
-            Prints.PrintAndColor($"level {this.level} \tMax HP: {this.maxHP} \tBase DMG: {this.baseDMG}", null, ConsoleColor.White);
         }
     }
 }

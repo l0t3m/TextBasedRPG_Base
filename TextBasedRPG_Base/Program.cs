@@ -9,7 +9,7 @@ Console.ForegroundColor = ConsoleColor.White;
 Navigation.SetupRooms();
 
 // temp: //
-SceneManager.player.AddWeapon(new Weapon("test weapon 1", 10, 10));
+//SceneManager.player.AddWeapon(new Weapon("test weapon 1", 10, 10));
 
 
 
@@ -24,25 +24,6 @@ while (isPlaying)
     else
         SceneManager.GameOver();
 }
-
-
-//Player player = SceneManager.player;
-
-//for (int i = 0; i <= 101; i++)
-//{
-//    Enemy enemy = Enemy.GenerateNewEnemy(player.level);
-
-//    if (i % 5 == 0)
-//    {
-//        player.PrintStatsSimple();
-//        enemy.PrintStatsSimple();
-//    }
-
-//    player.GainXP(player.CalculateUntilNextLevelXP());
-//}
-
-//SceneManager.player.AddMaxHP(2000);
-//SceneManager.player.AddHP(2000);
 
 
 

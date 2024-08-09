@@ -45,23 +45,42 @@ namespace TextBasedRPG_Base.MainClasses
             LivingRoom.isSafeZone = true;
 
             // Description of the room.
-            EntranceArea.Description = "description";
-            Koda.Description = "description";
-            Toilet.Description = "description";
-            Stairs.Description = "description";
-            LivingRoom.Description = "description";
-            DiningTable.Description = "description";
-            Hallway.Description = "description";
-            BackEntranceArea.Description = "description";
-            Kitchen.Description = "description";
-            Miklat.Description = "description";
+            EntranceArea.Description = "This area is tidy, with the exception of a few shoes scattered by the door.";
+            EntranceArea.ItemFindDescription = "Your eyes fall on a pair of shoes, and you decide to look inside one of them, finding";
+            
+            Koda.Description = "A beautiful white Samoyed is staring at you with a look of clear dissatisfaction on its face.";
+            Koda.canItemsSpawn = false;
+            
+            Toilet.Description = "An ordinary white toilet sits facing a small sink, with a shelf positioned above it.";
+            Toilet.ItemFindDescription = "You move closer to the shelf but can't see what's on it. You carefully hop onto the shelf, eventually locating";
+            
+            Stairs.Description = "A long set of light gray marble stairs.";
+            Stairs.canItemsSpawn = false;
+            
+            LivingRoom.Description = "The room features an 'L' shaped black sofa, littered with scratch marks scattered across its surface. A small white coffee table sits at the center, and a large TV faces the sofa. The overall design of the space is modern, standing out in contrast to the more traditional decor of the other rooms on that floor.";
+            LivingRoom.ItemFindDescription = "You spot two drawers in the coffee table; one of them is slightly open. You manage to slide it fully open and find";
+            
+            DiningTable.Description = "A long white dining table, flanked by three white chairs on each side, with scratch marks covering the tops of the chairs. In the center of the table, a beautiful decorative bowl with a marble texture adds an elegant touch to the otherwise simple setup.";
+            DiningTable.ItemFindDescription = "You glance inside the decorative bowl and spot";
+            
+            Hallway.Description = "A short hallway connects several rooms, lined with a cozy carpet that adds warmth and comfort to the space.";
+            Hallway.canItemsSpawn = false;
+            
+            BackEntranceArea.Description = "A large wooden door with scratches on its lower part stands near two refrigerators, one black and one white.";
+            BackEntranceArea.ItemFindDescription = "You spot a small gap behind the white refrigerator, and find";
+            
+            Kitchen.Description = "The kitchen is filled with bright wood cabinets and a variety of appliances. A wide, short window lets in a gentle stream of light, brightening the space.";
+            Kitchen.ItemFindDescription = "You hop onto the counter and explore the window sill, where you locate";
+            
+            Miklat.Description = "A small, cramped room filled with shelves and cluttered with various items and junk.";
+            Miklat.ItemFindDescription = "You scan the shelves and spot";
 
 
             // Items of each room.
-            Koda.ItemsArr = ["BLUE BALL"];
-            DiningTable.ItemsArr = ["EYE DROPS"];
-            Miklat.ItemsArr = ["DOG FOOD"];
-            EntranceArea.ItemsArr = ["DOG FOOD"];
+            BackEntranceArea.ItemsArr = ["blue squicky ball"];
+            DiningTable.ItemsArr = ["eye drops"];
+            Miklat.ItemsArr = ["dog food"];
+            EntranceArea.ItemsArr = ["a shoe lace"];
         }
 
 
@@ -69,7 +88,7 @@ namespace TextBasedRPG_Base.MainClasses
         // ------------------------------------ Methods: ------------------------------------ //
         public static void Explore()
         {
-            Prints.PrintRoom();
+            Functions.PrintRoom();
 
             try
             {
@@ -104,8 +123,8 @@ namespace TextBasedRPG_Base.MainClasses
         private static void Move()
         {
             Console.Clear();
-            Prints.PrintRoom();
-            Prints.PrintAndColor("\nYou chose to leave the room, which path will you take?", "leave");
+            Functions.PrintRoom();
+            Functions.PrintAndColor("\nYou chose to leave the room, which path will you take?", "leave");
 
             Dictionary<int, Room> roomDict = new Dictionary<int, Room>();
             int counter = 2;
@@ -114,7 +133,7 @@ namespace TextBasedRPG_Base.MainClasses
             foreach (Room room in SceneManager.currentRoom.ConnectedRooms)
             {
                 roomDict.Add(counter, room);
-                Prints.PrintAndColor($"{counter}. {room.Name} {room.status}", (string)room.status, room.statusColor);
+                Functions.PrintAndColor($"{counter}. {room.Name} {room.status}", (string)room.status, room.statusColor);
                 counter++;
             }
 
@@ -131,7 +150,7 @@ namespace TextBasedRPG_Base.MainClasses
                 {
                     // if player's level >= boss level, let in
                     // else "Access denied, your level is too low."
-                    Prints.PrintAndColor("Acess denied, your level is too low.", null, ConsoleColor.DarkRed);
+                    Functions.PrintAndColor("Acess denied, your level is too low.", null, ConsoleColor.DarkRed);
                     Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
                 }
                 else
@@ -148,60 +167,50 @@ namespace TextBasedRPG_Base.MainClasses
             SceneManager.currentRoom.discoveredStatus = true;
 
             if (SceneManager.currentRoom.isDangerous == true)
-                Prints.PrintAndColor("This area feels dangerous...", "dangerous", SceneManager.currentRoom.statusColor);
+                Functions.PrintAndColor("This area feels dangerous...", "dangerous", SceneManager.currentRoom.statusColor);
             else if (SceneManager.currentRoom.isSafeZone == false)
-                Prints.PrintAndColor("This area looks neutral but still not safe enough.", "neutral", SceneManager.currentRoom.statusColor);
+                Functions.PrintAndColor("This area looks neutral but still not safe enough.", "neutral", SceneManager.currentRoom.statusColor);
             else
-                Prints.PrintAndColor("This area looks safe, enemies can't reach this area.", "safe", SceneManager.currentRoom.statusColor);
+                Functions.PrintAndColor("This area looks safe, enemies can't reach this area.", "safe", SceneManager.currentRoom.statusColor);
 
 
 
             if (SceneManager.currentRoom.ItemsArr != null && SceneManager.currentRoom.ItemsArr.Length > 0)
             {
-                Prints.PrintAndColor($"You found {SceneManager.currentRoom.ItemsArr[0]}.", SceneManager.currentRoom.ItemsArr[0], ConsoleColor.Yellow);
+                Functions.PrintAndColor($"\n{SceneManager.currentRoom.ItemFindDescription} {SceneManager.currentRoom.ItemsArr[0]}.", SceneManager.currentRoom.ItemsArr[0], ConsoleColor.Yellow);
                 // add a condition to check what to do with the item found. + switch case
             }
 
 
-            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+            Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
         }
 
         private static void LookForEnemies()
         {
-            // insert chance to actually find an enemy.
-            if (Combat.StartFight(Enemy.GenerateNewEnemy()) == false)
+            if (Random.Shared.Next(1, 100) < 70)
             {
-                SceneManager.GameOver();
+                if (Combat.StartFight(Enemy.GenerateNewEnemy()) == false)
+                {
+                    SceneManager.GameOver();
+                }
+            }
+            else
+            {
+                Console.WriteLine("You didn't find any enemies.");
+
+                Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
             }
         }
 
         private static void SafeZone()
         {
-            Prints.PrintSafeZone();
+            SceneManager.player.DoRest();
 
-            try
-            {
-                int choice = int.Parse(Console.ReadLine());
-                Console.Clear();
-
-                switch (choice)
-                {
-                    case 1:
-                        SceneManager.player.DoRest();
-                        Console.WriteLine("You decided to rest for the day. HP has restored to max.");
-                        Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
-                        break;
-                    case 2:
-                        Explore();
-                        break;
-                }
-            }
-            catch
-            {
-                Console.Clear(); SafeZone();
-            }
-
-            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+            Console.WriteLine("You settled onto the couch, feeling relaxed and secure. As you closed your eyes, you quickly drifted off to sleep.");
+            Console.WriteLine("\nA day has passed...");
+            Functions.PrintAndColor("\nHP has been restored to max", null, ConsoleColor.Green);
+            Functions.PrintAndColor("\nPress enter to wake up.", null, ConsoleColor.DarkGray);
+            Console.ReadLine(); Console.Clear();
         }
 
         private static void Stats()

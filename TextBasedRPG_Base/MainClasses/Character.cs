@@ -55,7 +55,7 @@ namespace TextBasedRPG_Base.MainClasses
             this.HP += amount;
             if (this.HP > this.maxHP)
                 this.HP = this.maxHP;
-            Prints.PrintAndColor($"\n{name} has gained {amount} HP. ", null, ConsoleColor.Green);
+            Functions.PrintAndColor($"\n{name} has gained {amount} HP. ", null, ConsoleColor.Green);
         }
 
         public virtual void RemoveHP(int amount)
@@ -64,7 +64,7 @@ namespace TextBasedRPG_Base.MainClasses
             
             if (this.HP <= 0)
             {
-                Prints.PrintAndColor($"\n{name} has died", null, ConsoleColor.DarkRed);
+                Functions.PrintAndColor($"\n{name} has died", null, ConsoleColor.DarkRed);
                 this.isAlive = false;
             }
         }

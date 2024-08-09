@@ -58,7 +58,7 @@ namespace TextBasedRPG_Base.SubClasses
 
             if (enemy != null)
             {
-                Prints.PrintAndColor($"{enemy.name} has dealt {enemy.baseDMG} DMG to you.", $"{enemy.baseDMG} DMG", ConsoleColor.Red);
+                Functions.PrintAndColor($"{enemy.name} has dealt {enemy.baseDMG} DMG to you.", $"{enemy.baseDMG} DMG", ConsoleColor.Red);
                 player.RemoveHP(enemy.baseDMG);
             }
         }
@@ -96,11 +96,6 @@ namespace TextBasedRPG_Base.SubClasses
             Console.WriteLine($"level {this.level}");
             Console.WriteLine($"{this.baseDMG} baseDMG");
             Console.WriteLine("-----------------------------\n");
-        }
-
-        public void PrintStatsSimple() // debug purpose - remove function
-        {
-            Prints.PrintAndColor($"level {this.level} \tMax HP: {this.maxHP} \tBase DMG: {this.baseDMG}", null, ConsoleColor.DarkGray);
         }
     }
 }

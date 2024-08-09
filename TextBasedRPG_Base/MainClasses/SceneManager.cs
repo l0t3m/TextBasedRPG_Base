@@ -15,7 +15,7 @@ namespace TextBasedRPG_Base.MainClasses
 
         public static void MainMenu() // WIP
         {
-            Prints.PrintMainMenu();
+            Functions.PrintMainMenu();
 
             try
             {
