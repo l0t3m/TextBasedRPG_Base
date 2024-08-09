@@ -30,22 +30,32 @@ namespace TextBasedRPG_Base.MainClasses
         {
             // ConnectedRooms to each room.
             EntranceArea.ConnectedRooms = [Koda, LivingRoom, DiningTable, Hallway];
-            Koda.ConnectedRooms = [Toilet, Stairs, EntranceArea];
+            Koda.ConnectedRooms = [Toilet, Stairs, EntranceArea, DiningTable];
             Toilet.ConnectedRooms = [Koda];
             Stairs.ConnectedRooms = [Koda];
-            LivingRoom.ConnectedRooms = [EntranceArea];
-            DiningTable.ConnectedRooms = [EntranceArea];
-            Hallway.ConnectedRooms = [BackEntranceArea, Kitchen, Miklat, EntranceArea];
-            BackEntranceArea.ConnectedRooms = [Hallway];
-            Kitchen.ConnectedRooms = [Hallway];
-            Miklat.ConnectedRooms = [Hallway];
+            LivingRoom.ConnectedRooms = [EntranceArea, DiningTable];
+            DiningTable.ConnectedRooms = [EntranceArea, Koda, Hallway, LivingRoom];
+            Hallway.ConnectedRooms = [BackEntranceArea, Kitchen, Miklat, EntranceArea, DiningTable];
+            BackEntranceArea.ConnectedRooms = [Hallway, Miklat, Kitchen];
+            Kitchen.ConnectedRooms = [Hallway, Miklat, BackEntranceArea];
+            Miklat.ConnectedRooms = [Hallway, BackEntranceArea, Kitchen];
 
             SceneManager.currentRoom = EntranceArea;
             Koda.isBossRoom = true;
             LivingRoom.isSafeZone = true;
 
             // Description of the room.
-            // --WIP--
+            EntranceArea.Description = "description";
+            Koda.Description = "description";
+            Toilet.Description = "description";
+            Stairs.Description = "description";
+            LivingRoom.Description = "description";
+            DiningTable.Description = "description";
+            Hallway.Description = "description";
+            BackEntranceArea.Description = "description";
+            Kitchen.Description = "description";
+            Miklat.Description = "description";
+
 
             // Items of each room.
             Koda.ItemsArr = ["BLUE BALL"];
@@ -121,7 +131,7 @@ namespace TextBasedRPG_Base.MainClasses
                 {
                     // if player's level >= boss level, let in
                     // else "Access denied, your level is too low."
-                    Console.WriteLine("Acess denied, your level is too low.");
+                    Prints.PrintAndColor("Acess denied, your level is too low.", null, ConsoleColor.DarkRed);
                     Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
                 }
                 else

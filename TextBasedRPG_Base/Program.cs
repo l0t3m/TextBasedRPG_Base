@@ -10,11 +10,6 @@ Navigation.SetupRooms();
 
 // temp: //
 SceneManager.player.AddWeapon(new Weapon("test weapon 1", 10, 10));
-//SceneManager.player.GainXP(60);
-
-//SceneManager.player.AddMaxHP(2000);
-//SceneManager.player.AddHP(2000);
-
 
 
 
@@ -31,33 +26,25 @@ while (isPlaying)
 }
 
 
+//Player player = SceneManager.player;
 
-
-
-
-
-
-//Dictionary<int, Room> roomDict = new Dictionary<int, Room>();
-//int counter = 0;
-
-//foreach (Room room in SceneManager.currentRoom.ConnectedRooms)
+//for (int i = 0; i <= 101; i++)
 //{
-//    roomDict.Add(counter, room);
-//    counter++;
+//    Enemy enemy = Enemy.GenerateNewEnemy(player.level);
+
+//    if (i % 5 == 0)
+//    {
+//        player.PrintStatsSimple();
+//        enemy.PrintStatsSimple();
+//    }
+
+//    player.GainXP(player.CalculateUntilNextLevelXP());
 //}
 
-//SceneManager.currentRoom = roomDict[2];
-//Console.WriteLine(SceneManager.currentRoom.Name);
-
-//Enemy enemy = Enemy.GenerateNewEnemy();
-//enemy.PrintStats();
+//SceneManager.player.AddMaxHP(2000);
+//SceneManager.player.AddHP(2000);
 
 
-//
-//player.PrintStats();
-
-//player.GainXP(4000);
-//player.PrintStats();
 
 //Boss boss = new Boss("koda", 20, 10, new Weapon("Tail", 20, 5), 20);
 //boss.PrintStats();

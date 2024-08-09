@@ -12,14 +12,15 @@ namespace TextBasedRPG_Base.MainClasses
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
         public string Name { get; }
+        public string Description { get; set; }
         public Room[] ConnectedRooms { get; set; } // add room descriptions
 
         // status related:
         public bool isDangerous { get; } = false;
         public bool isSafeZone { get; set; } = false;
         public bool isNeutral { get; } = false;
-        //public bool discoveredStatus { get; set; } = false;
-        public bool discoveredStatus { get; set; } = true; // debug purpose
+        //public bool discoveredStatus { get; set; } = false; // right line
+        public bool discoveredStatus { get; set; } = true; // wrong line - debug purpose
 
 
         // Boss related:

@@ -27,8 +27,18 @@ namespace TextBasedRPG_Base.SubClasses
 
         public static Enemy GenerateNewEnemy()
         {
-            int level = Random.Shared.Next(SceneManager.currentRoom.minLevel + 1 , SceneManager.currentRoom.maxLevel + 1);
+            int level = Random.Shared.Next(SceneManager.currentRoom.minLevel , SceneManager.currentRoom.maxLevel + 1);
 
+            return new Enemy(
+                name: GenerateName(),
+                maxHP: GenerateMaxHP(level),
+                baseDMG: GenerateBaseDMG(level),
+                level: level
+                );
+        }
+
+        public static Enemy GenerateNewEnemy(int level) // debug purpose - remove function
+        {
             return new Enemy(
                 name: GenerateName(),
                 maxHP: GenerateMaxHP(level),
@@ -63,12 +73,12 @@ namespace TextBasedRPG_Base.SubClasses
 
         private static int GenerateMaxHP(int level)
         {
-            return (int)(5+4.5*(level-1));
+            return (int)(6 + (level * 0.125) + 4 * (level - 1));
         }
 
         private static int GenerateBaseDMG(int level)
         {
-            return (int)Math.Pow(2, (level-1)/1.2);
+            return (int)(2 + (level * 0.1) + 0.85 * (level - 1));
         }
 
         public int CalculateXPWorth()
@@ -86,6 +96,11 @@ namespace TextBasedRPG_Base.SubClasses
             Console.WriteLine($"level {this.level}");
             Console.WriteLine($"{this.baseDMG} baseDMG");
             Console.WriteLine("-----------------------------\n");
+        }
+
+        public void PrintStatsSimple() // debug purpose - remove function
+        {
+            Prints.PrintAndColor($"level {this.level} \tMax HP: {this.maxHP} \tBase DMG: {this.baseDMG}", null, ConsoleColor.DarkGray);
         }
     }
 }

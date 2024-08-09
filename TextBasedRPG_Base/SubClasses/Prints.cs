@@ -37,7 +37,7 @@ namespace TextBasedRPG_Base.SubClasses
             {
                 if (SceneManager.currentRoom.isDangerous)
                 {
-                    if (SceneManager.currentRoom.minLevel < SceneManager.player.level)
+                    if (SceneManager.currentRoom.minLevel <= SceneManager.player.level)
                         PrintAndColor($"4. Look for enemies [lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", $"[lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", ConsoleColor.DarkYellow);
                     else
                         PrintAndColor($"4. Look for enemies [lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", $"[lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", ConsoleColor.DarkRed);
@@ -60,8 +60,8 @@ namespace TextBasedRPG_Base.SubClasses
         // Combat:
         public static void PrintFight()
         {
-            Prints.PrintAndColor($"{SceneManager.player.name}: {SceneManager.player.HP} HP | {SceneManager.player.baseDMG} DMG", $"{SceneManager.player.name}", ConsoleColor.Magenta);
-            Prints.PrintAndColor($"{SceneManager.currentEnemy.name}: {SceneManager.currentEnemy.HP} HP | {SceneManager.currentEnemy.baseDMG} DMG", $"{SceneManager.currentEnemy.name}", ConsoleColor.DarkRed);
+            Prints.PrintAndColor($"{SceneManager.player.name} [lvl.{SceneManager.player.level}]: {SceneManager.player.HP} HP | {SceneManager.player.baseDMG} DMG", $"{SceneManager.player.name}", ConsoleColor.Magenta);
+            Prints.PrintAndColor($"{SceneManager.currentEnemy.name} [lvl.{SceneManager.currentEnemy.level}]: {SceneManager.currentEnemy.HP} HP | {SceneManager.currentEnemy.baseDMG} DMG", $"{SceneManager.currentEnemy.name}", ConsoleColor.DarkRed);
 
             Console.WriteLine("\nWhat action will you take?");
             Prints.PrintAndColor($"1. Attack [{SceneManager.player.baseDMG} DMG]", $"{SceneManager.player.baseDMG} DMG", ConsoleColor.Red);
