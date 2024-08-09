@@ -13,7 +13,7 @@ namespace TextBasedRPG_Base.MainClasses
         // -------------------------- Attributes and Constructors: -------------------------- //
         public string name { protected set;  get; }
         public int HP { protected set; get; }
-        protected int maxHP;
+        public int maxHP { protected set; get; }
         public int baseDMG { protected set; get; }
         public Weapon[] weapons { protected set; get; }
         // item
@@ -53,17 +53,18 @@ namespace TextBasedRPG_Base.MainClasses
         public void AddHP(int amount)
         {
             this.HP += amount;
-            if (this.HP < this.maxHP)
+            if (this.HP > this.maxHP)
                 this.HP = this.maxHP;
+            Prints.PrintAndColor($"\n{name} has gained {amount} HP. ", null, ConsoleColor.Green);
         }
 
-        public void RemoveHP(int amount)
+        public virtual void RemoveHP(int amount)
         {
             this.HP -= amount;
             
             if (this.HP <= 0)
             {
-                Prints.PrintAndColor($"{name} has died", null);
+                Prints.PrintAndColor($"\n{name} has died", null, ConsoleColor.DarkRed);
                 this.isAlive = false;
             }
         }

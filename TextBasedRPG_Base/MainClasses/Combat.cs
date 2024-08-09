@@ -13,13 +13,11 @@ namespace TextBasedRPG_Base.MainClasses
         public static bool StartFight(Enemy enemy)
         {
             SceneManager.currentEnemy = enemy;
-            Prints.PrintAndColor($"While looking around for enemies, you encounter a {enemy.name}\n", $"{enemy.name}", ConsoleColor.Red);
+            Prints.PrintAndColor($"While looking around for enemies, you encounter a {enemy.name}\n", $"{enemy.name}", ConsoleColor.DarkRed);
             Prints.PrintFight();
 
             while (SceneManager.player.isAlive && SceneManager.currentEnemy.isAlive && SceneManager.currentEnemy != null)
             {
-                Console.WriteLine(SceneManager.currentEnemy.isAlive);
-                Console.WriteLine(SceneManager.currentEnemy == null);
                 try
                 {
                     int choice = int.Parse(Console.ReadLine());
@@ -31,7 +29,7 @@ namespace TextBasedRPG_Base.MainClasses
                             if (SceneManager.player.isAlive)
                             {
                                 SceneManager.player.AttackEnemy();
-                                Console.ReadLine(); Console.Clear();
+                                Console.ReadLine();
                             }
 
                             if (SceneManager.currentEnemy.isAlive)
@@ -40,13 +38,16 @@ namespace TextBasedRPG_Base.MainClasses
                                 Console.ReadLine(); Console.Clear();
                             }
 
-                            Prints.PrintFight();
+                            Console.Clear(); Prints.PrintFight();
                             break;
 
                         case 2:
                             SceneManager.currentEnemy = null;
                             Navigation.Explore();
                             break;
+                        default:
+                            Prints.PrintFight();
+                            break; 
                     }
                 }
                 catch

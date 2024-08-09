@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace TextBasedRPG_Base.SubClasses
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
         public int xp {  get; private set; }
+        public int daysCounter { get; private set; } = 0;
 
         public Player(string name) 
             : base(name: name, maxHP: 10, baseDMG: 2, weaponSlots: 3)
@@ -34,13 +36,12 @@ namespace TextBasedRPG_Base.SubClasses
 
                 if (enemy.isAlive == false)
                 {
+                    player.AddHP((int)(enemy.maxHP / 4));
                     player.GainXP(enemy.CalculateXPWorth());
                 }
             }
         }
         
-
-
         public void AddMaxHP(int amount)
         {
             this.maxHP += amount;
@@ -49,6 +50,17 @@ namespace TextBasedRPG_Base.SubClasses
         public void AddBaseDMG(int amount)
         {
             this.baseDMG += amount;
+        }
+
+        public override void RemoveHP(int amount)
+        {
+            this.HP -= amount;
+
+            if (this.HP <= 0)
+            {
+                Prints.PrintAndColor($"{name} has died", null, ConsoleColor.Magenta);
+                this.isAlive = false;
+            }
         }
 
         //public void addItem(ITEM) { }
@@ -111,12 +123,24 @@ namespace TextBasedRPG_Base.SubClasses
             this.level++;
             this.AddMaxHP((int)(this.maxHP * 0.5));
             this.AddBaseDMG((int)(this.baseDMG * 0.75));
+            this.HP = maxHP;
+
+            Console.WriteLine($"\nLevel up, You're now level {this.level}!");
+            Console.WriteLine($"+{(int)(this.maxHP * 0.5)} maxHP");
+            Console.WriteLine($"+{(int)(this.baseDMG * 0.75)} baseDMG");
+            Console.WriteLine($"HP has restored to max");
+            Console.WriteLine("\nPress enter to continue.");
+        }
+
+        public void DoRest()
+        {
+            this.HP = this.maxHP;
+            daysCounter++;
         }
 
 
 
         // ------------------------------------- TEMP: ------------------------------------- //
-
         public override void PrintStats()
         {
             Console.WriteLine("\n-----------------------------");
@@ -125,6 +149,7 @@ namespace TextBasedRPG_Base.SubClasses
             Console.WriteLine($"level {this.level} ({this.xp} / {CalculateNextLevelXP()})");
             Console.WriteLine($"{this.weapons.Length} weapon slots");
             Console.WriteLine($"{this.baseDMG} baseDMG");
+            Console.WriteLine($"{this.daysCounter} Days passed");
 
             foreach (Weapon weapon in this.weapons)
             {

@@ -12,17 +12,10 @@ namespace TextBasedRPG_Base.SubClasses
         // Navigation:
         public static void PrintRoom()
         {
-            if (SceneManager.currentRoom.discoveredIfDangerous)
-            {
-                if (SceneManager.currentRoom.isDangerous)
-                    PrintAndColor($"You're currently in {SceneManager.currentRoom.Name}. [Dangerous]", "[Dangerous]", ConsoleColor.DarkRed);
-                else
-                    PrintAndColor($"You're currently in {SceneManager.currentRoom.Name}. [Safe]", "[Safe]");
-            }
-            else
-            {
-                PrintAndColor($"You're currently in {SceneManager.currentRoom.Name}.", SceneManager.currentRoom.Name, ConsoleColor.DarkGray);
-            }
+            PrintAndColor(
+                $"You're currently in {SceneManager.currentRoom.Name}. {SceneManager.currentRoom.status}", 
+                SceneManager.currentRoom.status, 
+                SceneManager.currentRoom.statusColor);
 
             // Print the current room description.
 
@@ -40,13 +33,26 @@ namespace TextBasedRPG_Base.SubClasses
             Console.WriteLine("2. Check stats");
             Console.WriteLine("3. Leave the room");
 
-            if (SceneManager.currentRoom.discoveredIfDangerous && SceneManager.currentRoom.isDangerous)
+            if (SceneManager.currentRoom.discoveredStatus)
             {
-                if (SceneManager.currentRoom.minLevel > SceneManager.player.level)
-                    PrintAndColor($"4. Look for enemies [lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", $"[lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", ConsoleColor.DarkGreen);
-                else
-                    PrintAndColor($"4. Look for enemies [lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", $"[lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", ConsoleColor.DarkRed);
+                if (SceneManager.currentRoom.isDangerous)
+                {
+                    if (SceneManager.currentRoom.minLevel < SceneManager.player.level)
+                        PrintAndColor($"4. Look for enemies [lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", $"[lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", ConsoleColor.DarkYellow);
+                    else
+                        PrintAndColor($"4. Look for enemies [lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", $"[lvl.{SceneManager.currentRoom.minLevel}-{SceneManager.currentRoom.maxLevel}]", ConsoleColor.DarkRed);
+                }
+                if (SceneManager.currentRoom.isSafeZone)
+                    Console.WriteLine("4. Rest");
             }
+        }
+
+        public static void PrintSafeZone()
+        {
+            Console.WriteLine("You hopped onto the couch, feeling relaxed and secure.");
+            Console.WriteLine("\nWhat would you like to do?");
+            Console.WriteLine("1. Rest");
+            Console.WriteLine("2. Go back");
         }
 
 
@@ -55,10 +61,10 @@ namespace TextBasedRPG_Base.SubClasses
         public static void PrintFight()
         {
             Prints.PrintAndColor($"{SceneManager.player.name}: {SceneManager.player.HP} HP | {SceneManager.player.baseDMG} DMG", $"{SceneManager.player.name}", ConsoleColor.Magenta);
-            Prints.PrintAndColor($"{SceneManager.currentEnemy.name}: {SceneManager.currentEnemy.HP} HP | {SceneManager.currentEnemy.baseDMG} DMG", $"{SceneManager.currentEnemy.name}", ConsoleColor.Red);
+            Prints.PrintAndColor($"{SceneManager.currentEnemy.name}: {SceneManager.currentEnemy.HP} HP | {SceneManager.currentEnemy.baseDMG} DMG", $"{SceneManager.currentEnemy.name}", ConsoleColor.DarkRed);
 
             Console.WriteLine("\nWhat action will you take?");
-            Prints.PrintAndColor($"1. Attack [{SceneManager.player.baseDMG} DMG]", $"{SceneManager.player.baseDMG} DMG", ConsoleColor.DarkRed);
+            Prints.PrintAndColor($"1. Attack [{SceneManager.player.baseDMG} DMG]", $"{SceneManager.player.baseDMG} DMG", ConsoleColor.Red);
             Console.WriteLine("2. Flee");
         }
 
@@ -88,7 +94,7 @@ namespace TextBasedRPG_Base.SubClasses
         // menus:
         public static void PrintMainMenu()
         {
-            Prints.PrintAndColor("Dictator of the house ^._.^", "^._.^", ConsoleColor.Cyan);
+            Prints.PrintAndColor("Dictator of the house ^._.^", "^._.^", ConsoleColor.Magenta);
             Console.WriteLine("1. New game");
             Console.WriteLine("2. Quit");
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TextBasedRPG_Base.SubClasses;
@@ -41,6 +42,7 @@ namespace TextBasedRPG_Base.MainClasses
 
             SceneManager.currentRoom = EntranceArea;
             Koda.isBossRoom = true;
+            LivingRoom.isSafeZone = true;
 
             // Description of the room.
             // --WIP--
@@ -73,8 +75,14 @@ namespace TextBasedRPG_Base.MainClasses
                     case 3:
                         Move(); break;
                     case 4:
-                        if (SceneManager.currentRoom.discoveredIfDangerous && SceneManager.currentRoom.isDangerous)
-                            LookForEnemies(); break;
+                        if (SceneManager.currentRoom.discoveredStatus)
+                        {
+                            if (SceneManager.currentRoom.isDangerous)
+                                LookForEnemies();
+                            if (SceneManager.currentRoom.isSafeZone)
+                                SafeZone();
+                        }
+                        break;
                 }
             }
             catch
@@ -96,12 +104,7 @@ namespace TextBasedRPG_Base.MainClasses
             foreach (Room room in SceneManager.currentRoom.ConnectedRooms)
             {
                 roomDict.Add(counter, room);
-
-                if (room.isBossRoom)
-                    Prints.PrintAndColor($"{counter}. {room.Name} [Boss lvl.---]", "[Boss lvl.---]", ConsoleColor.Red); // add the boss lvl
-                else
-                    Console.WriteLine($"{counter}. {room.Name}");
-
+                Prints.PrintAndColor($"{counter}. {room.Name} {room.status}", (string)room.status, room.statusColor);
                 counter++;
             }
 
@@ -132,18 +135,23 @@ namespace TextBasedRPG_Base.MainClasses
 
         private static void Examine()
         {
-            SceneManager.currentRoom.discoveredIfDangerous = true;
-            if (SceneManager.currentRoom.isDangerous == false)
-                Console.WriteLine("This area feels safe, enemies can't reach this area.");
+            SceneManager.currentRoom.discoveredStatus = true;
+
+            if (SceneManager.currentRoom.isDangerous == true)
+                Prints.PrintAndColor("This area feels dangerous...", "dangerous", SceneManager.currentRoom.statusColor);
+            else if (SceneManager.currentRoom.isSafeZone == false)
+                Prints.PrintAndColor("This area looks neutral but still not safe enough.", "neutral", SceneManager.currentRoom.statusColor);
             else
-                Console.WriteLine("This area feels dangerous...");
-            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+                Prints.PrintAndColor("This area looks safe, enemies can't reach this area.", "safe", SceneManager.currentRoom.statusColor);
+
+
 
             if (SceneManager.currentRoom.ItemsArr != null && SceneManager.currentRoom.ItemsArr.Length > 0)
             {
                 Prints.PrintAndColor($"You found {SceneManager.currentRoom.ItemsArr[0]}.", SceneManager.currentRoom.ItemsArr[0], ConsoleColor.Yellow);
                 // add a condition to check what to do with the item found. + switch case
             }
+
 
             Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
         }
@@ -155,6 +163,35 @@ namespace TextBasedRPG_Base.MainClasses
             {
                 SceneManager.GameOver();
             }
+        }
+
+        private static void SafeZone()
+        {
+            Prints.PrintSafeZone();
+
+            try
+            {
+                int choice = int.Parse(Console.ReadLine());
+                Console.Clear();
+
+                switch (choice)
+                {
+                    case 1:
+                        SceneManager.player.DoRest();
+                        Console.WriteLine("You decided to rest for the day. HP has restored to max.");
+                        Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+                        break;
+                    case 2:
+                        Explore();
+                        break;
+                }
+            }
+            catch
+            {
+                Console.Clear(); SafeZone();
+            }
+
+            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
         }
 
         private static void Stats()

@@ -27,7 +27,7 @@ namespace TextBasedRPG_Base.SubClasses
 
         public static Enemy GenerateNewEnemy()
         {
-            int level = Random.Shared.Next(SceneManager.currentRoom.minLevel, SceneManager.currentRoom.maxLevel + 1);
+            int level = Random.Shared.Next(SceneManager.currentRoom.minLevel + 1 , SceneManager.currentRoom.maxLevel + 1);
 
             return new Enemy(
                 name: GenerateName(),
@@ -49,7 +49,7 @@ namespace TextBasedRPG_Base.SubClasses
             if (enemy != null)
             {
                 Prints.PrintAndColor($"{enemy.name} has dealt {enemy.baseDMG} DMG to you.", $"{enemy.baseDMG} DMG", ConsoleColor.Red);
-                player.RemoveHP(player.baseDMG);
+                player.RemoveHP(enemy.baseDMG);
             }
         }
 
@@ -63,12 +63,12 @@ namespace TextBasedRPG_Base.SubClasses
 
         private static int GenerateMaxHP(int level)
         {
-            return 5+3*(level-1);
+            return (int)(5+4.5*(level-1));
         }
 
         private static int GenerateBaseDMG(int level)
         {
-            return (int)Math.Pow(2, (level-1)/1.5);
+            return (int)Math.Pow(2, (level-1)/1.2);
         }
 
         public int CalculateXPWorth()
