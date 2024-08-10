@@ -30,6 +30,8 @@ namespace TextBasedRPG_Base.MainClasses
                         Navigation.Explore(); break;
                     case 2:
                         Environment.Exit(0); break;
+                    default:
+                        MainMenu(); break;
                 }
             }
             catch

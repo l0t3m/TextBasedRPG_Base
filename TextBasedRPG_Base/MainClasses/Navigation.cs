@@ -40,7 +40,8 @@ namespace TextBasedRPG_Base.MainClasses
             Kitchen.ConnectedRooms = [Hallway, Miklat, BackEntranceArea];
             Miklat.ConnectedRooms = [Hallway, BackEntranceArea, Kitchen];
 
-            SceneManager.currentRoom = EntranceArea;
+            //SceneManager.currentRoom = EntranceArea;
+            SceneManager.currentRoom = DiningTable; // debug
             Koda.isBossRoom = true;
             LivingRoom.isSafeZone = true;
 
@@ -112,6 +113,9 @@ namespace TextBasedRPG_Base.MainClasses
                                 SafeZone();
                         }
                         break;
+                    default:
+                        Explore(); break;
+
                 }
             }
             catch
@@ -142,6 +146,7 @@ namespace TextBasedRPG_Base.MainClasses
                 int choice = int.Parse(Console.ReadLine());
 
                 Console.Clear();
+
                 if (choice == 1)
                 {
                     Explore();
@@ -187,7 +192,7 @@ namespace TextBasedRPG_Base.MainClasses
 
         private static void LookForEnemies()
         {
-            if (Random.Shared.Next(1, 100) < 70)
+            if (Random.Shared.Next(0, 100) < 85)
             {
                 if (Combat.StartFight(Enemy.GenerateNewEnemy()) == false)
                 {
@@ -216,7 +221,7 @@ namespace TextBasedRPG_Base.MainClasses
         private static void Stats()
         {
             SceneManager.player.PrintStats();
-            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+            Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
         }
         
 

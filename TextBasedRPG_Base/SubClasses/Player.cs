@@ -24,33 +24,30 @@ namespace TextBasedRPG_Base.SubClasses
 
 
         // ------------------------------------ Methods: ------------------------------------ //
-        public void AttackEnemy()
+        public void AttackEnemy(int damage)
         {
             Enemy enemy = SceneManager.currentEnemy;
-            Player player = SceneManager.player;
 
             if (enemy != null) 
             {
-                Functions.PrintAndColor($"You've dealt {player.baseDMG} DMG to the {enemy.name}.", $"{player.baseDMG} DMG", ConsoleColor.Red);
-                enemy.RemoveHP(player.baseDMG);
+                Functions.PrintAndColor($"You've dealt {damage} DMG to the {enemy.name}.", $"{damage} DMG", ConsoleColor.Red);
+                enemy.RemoveHP(damage);
 
                 if (enemy.isAlive == false)
                 {
-                    player.AddHP((int)(enemy.maxHP / 4));
-                    player.GainXP(enemy.CalculateXPWorth());
+                    this.AddHP((int)(enemy.maxHP / 4));
+                    this.GainXP(enemy.CalculateXPWorth());
                 }
             }
         }
-        
-        public void AddMaxHP(int amount)
-        {
-            this.maxHP += amount;
-        } // remove function ?
 
-        public void AddBaseDMG(int amount)
+        public void AttackEnemy(Weapon weapon)
         {
-            this.baseDMG += amount;
-        } // remove function ?
+            AttackEnemy(weapon.damage + this.baseDMG);
+
+            if (weapon.RemoveDurability())
+                this.DestroyWeapon(weapon);
+        }
 
         public override void RemoveHP(int amount)
         {
@@ -66,6 +63,34 @@ namespace TextBasedRPG_Base.SubClasses
         //public void addItem(ITEM) { }
         //public void removeItem(ITEM) { }
 
+        public void DoRest()
+        {
+            this.HP = this.maxHP;
+            daysCounter++;
+        }
+
+        // ------------------------------------ Weapon Methods: ------------------------------------ //
+        public void SortWeapons() // returns an array with weapons sorted
+        {
+            Weapon[] weaponsArr = new Weapon[this.weapons.Length];
+
+            foreach (Weapon weapon in this.weapons)
+            {
+                if (weapon != null)
+                {
+                    for (int i = 0; i < weaponsArr.Length; i++)
+                    {
+                        if (weaponsArr[i] == null)
+                        {
+                            weaponsArr[i] = weapon;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            this.weapons = weaponsArr;
+        }
 
         /// <summary> Adds a weapon to the first empty slot. </summary>
         /// <returns> True if added successfully, False if there is no empty slots. </returns>
@@ -92,6 +117,19 @@ namespace TextBasedRPG_Base.SubClasses
             return oldWeapon;
         }
 
+        public void DestroyWeapon(Weapon targetWeapon)
+        {
+            for (int i = 0; i < this.weapons.Length; i++)
+            {
+                if (targetWeapon == this.weapons[i])
+                {
+                    this.weapons[i] = null;
+                    break;
+                }
+            }
+            this.SortWeapons();
+        }
+
 
 
         // ----------------------------------- XP Methods: ----------------------------------- //
@@ -100,13 +138,12 @@ namespace TextBasedRPG_Base.SubClasses
             return (int)(this.level * 9 + (Math.Pow(this.level, 2)));
         }
 
-        // debug purpose - chance to private
-        public int CalculateUntilNextLevelXP() // Uses the current xp to calculate how much xp is needed to level up.
+        private int CalculateUntilNextLevelXP() // Uses the current xp to calculate how much xp is needed to level up.
         {
             return CalculateNextLevelXP() - this.xp;
         }
 
-        public void GainXP(int xpAmount)
+        private void GainXP(int xpAmount)
         {
             this.xp += xpAmount;
             int xpDif = CalculateUntilNextLevelXP();
@@ -134,47 +171,49 @@ namespace TextBasedRPG_Base.SubClasses
             // debug purpose - uncomment above
         }
 
-        public void DoRest()
-        {
-            this.HP = this.maxHP;
-            daysCounter++;
-        }
-
 
 
         // ------------------------------------- TEMP: ------------------------------------- //
         public override void PrintStats()
         {
-            Console.WriteLine("\n-----------------------------");
-            Console.WriteLine($"{this.name} ({(this.isAlive == true ? "Alive" : "Dead")})");
-            Console.WriteLine($"{this.HP} / {this.maxHP} HP");
-            Console.WriteLine($"level {this.level} ({this.xp} / {CalculateNextLevelXP()})");
-            Console.WriteLine($"{this.weapons.Length} weapon slots");
-            Console.WriteLine($"{this.baseDMG} baseDMG");
-            Console.WriteLine($"{this.daysCounter} Days passed");
+            PrintInfo();
 
-            foreach (Weapon weapon in this.weapons)
+            Console.WriteLine("\n--> STATS:");
+            Console.WriteLine($"| [lvl.{this.level}] {this.name}");
+            Console.WriteLine($"| {this.HP}/{this.maxHP} HP, {this.xp}/{CalculateNextLevelXP()} XP");
+            Console.WriteLine($"| {this.baseDMG} base DMG");
+
+            PrintWeapons();
+
+            PrintItems();
+        }
+
+        private void PrintInfo()
+        {
+            Console.WriteLine("--> Info:");
+            Console.WriteLine($"| Current in {SceneManager.currentRoom.Name}");
+            Console.WriteLine($"| {this.daysCounter} days has passed");
+        }
+
+        public void PrintWeapons()
+        {
+            this.SortWeapons();
+
+            Console.WriteLine($"\n--> WEAPONS: [{this.weapons.Count(n => n != null)} / {this.weapons.Length}]");
+            
+            for ( int i = 0; i < weapons.Length; i++ )
             {
-                if (weapon != null)
-                    weapon.PrintWeapon();
+                if (weapons[i] != null)
+                {
+                    Console.WriteLine($"| {i + 1}. {weapons[i].name}: {weapons[i].damage} DMG | {weapons[i].durability} uses left");
+                }
             }
+        }
 
+        private void PrintItems()
+        {
+            Console.WriteLine($"\nItems: [] WIP");
             // items
-            Console.WriteLine("-----------------------------\n");
-        }
-
-        public static int DebugMaxHP(int level) // debug purpose - remove function
-        {
-            int tempMaxHP = 10;
-            for (int i = 0; i < level - 1; i++) tempMaxHP = (int)(tempMaxHP * 1.5);
-            return tempMaxHP;
-        }
-
-        public static int DebugBaseDMG(int level) // debug purpose - remove function
-        {
-            int tempBaseDMG = 2;
-            for (int i = 0; i < level - 1; i++) tempBaseDMG = (int)(tempBaseDMG * 1.75);
-            return tempBaseDMG;
         }
     }
 }

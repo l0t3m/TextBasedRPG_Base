@@ -25,20 +25,13 @@ namespace TextBasedRPG_Base.SubClasses
         }
 
 
+
+        // ----------------------------------- Generators: ----------------------------------- //
+
         public static Enemy GenerateNewEnemy()
         {
             int level = Random.Shared.Next(SceneManager.currentRoom.minLevel , SceneManager.currentRoom.maxLevel + 1);
 
-            return new Enemy(
-                name: GenerateName(),
-                maxHP: GenerateMaxHP(level),
-                baseDMG: GenerateBaseDMG(level),
-                level: level
-                );
-        }
-
-        public static Enemy GenerateNewEnemy(int level) // debug purpose - remove function
-        {
             return new Enemy(
                 name: GenerateName(),
                 maxHP: GenerateMaxHP(level),
@@ -71,14 +64,35 @@ namespace TextBasedRPG_Base.SubClasses
             return $"{colors[Random.Shared.Next(colors.Length)]} {values.GetValue(Random.Shared.Next(values.Length))}";
         }
 
+        /// <summary>
+        /// Gets the desired enemy's level and generates maxHP using a formula, randomly changing the value for diversity.
+        /// </summary>
         private static int GenerateMaxHP(int level)
         {
-            return (int)(6 + (level * 0.125) + 4 * (level - 1));
+            int randomStat = Random.Shared.Next(0, 100);
+            int baseHP = 6;
+
+            if (randomStat < 25)
+                baseHP++;
+            else if (randomStat < 50)
+                baseHP--;
+            return (int)(baseHP + (level * 0.125) + 4 * (level - 1));
         }
 
+        /// <summary>
+        /// Gets the desired enemy's level and generates baseDMG using a formula, randomly changing the value for diversity.
+        /// </summary>
         private static int GenerateBaseDMG(int level)
         {
-            return (int)(2 + (level * 0.1) + 0.85 * (level - 1));
+            int randomStat = Random.Shared.Next(0, 100);
+            int baseDMG = 2;
+
+            if (randomStat < 25)
+                baseDMG++;
+            else if (randomStat < 50)
+                baseDMG--;
+
+            return (int)(baseDMG + (level * 0.1) + 0.85 * (level - 1));
         }
 
         public int CalculateXPWorth()

@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace TextBasedRPG_Base.SubClasses
 {
+    public enum WeaponType
+    {
+        Sword,
+        Knife,
+        Katana,
+        Machete
+    }
+
     public class Weapon
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
@@ -22,12 +30,63 @@ namespace TextBasedRPG_Base.SubClasses
 
 
 
+        // ----------------------------------- Generators: ----------------------------------- //
+
+        public static Weapon GenerateNewWeapon(int level)
+        {
+            // Base Stats of each sword.
+            int baseDur = 4;
+            int baseDMG = 2;
+
+            int randomStat = Random.Shared.Next(0, 100); // Random chance to increase baseDMG
+            if (randomStat < 25)
+            {
+                baseDMG++;
+
+                if (Random.Shared.Next(0, 100) < 50) // Random chance to increase / decrease baseDur
+                    baseDur++;
+                else
+                    baseDur--;
+            }
+            else if (randomStat < 50)  // Random chance to increase baseDMG
+            {
+                baseDMG += 2;
+
+                if (Random.Shared.Next(0, 100) < 25) // Random chance to increase / decrease baseDur
+                    baseDur += 2;
+                else
+                    baseDur++;
+            }
+            else
+            {
+                if (Random.Shared.Next(0, 100) < 60) // Random chance to increase / decrease baseDur
+                    baseDur += 2;
+                else
+                    baseDur++;
+            }
+
+            return new Weapon(
+                name: GenerateName(),
+                durability: baseDur,
+                damage: (int)(baseDMG + level * 0.5)
+                );
+        }
+
+        private static string GenerateName()
+        {
+            var values = Enum.GetValues<WeaponType>();
+            var bladeTypes = new string[] { "Sharp", "Keen", "Glossy", "Sparkling", "Polished", "Shiny", "Rusty", "Shattered", "Elegant", "Lightweight", "Mythical" };
+
+            return $"{bladeTypes[Random.Shared.Next(bladeTypes.Length)]} {values.GetValue(Random.Shared.Next(values.Length))}";
+        }
+
+
         // ------------------------------------ Methods: ------------------------------------ //
 
         /// <returns> True = the weapon should be destroyed, otherwise False </returns>
-        public bool RemoveDurability(int amount) 
+        public bool RemoveDurability() 
         {
-            this.durability -= amount;
+            this.durability--;
             return this.durability <= 0;
         }
 
@@ -36,7 +95,8 @@ namespace TextBasedRPG_Base.SubClasses
         // ------------------------------------- TEMP: ------------------------------------- //
         public void PrintWeapon()
         {
-            Console.WriteLine($"\t- {this.name} | {this.damage} dmg | {this.durability} uses left");
+            Console.WriteLine($"| {this.name}:");
+            Console.WriteLine($"|      {this.damage} DMG | {this.durability} uses left");
         }
     }
 }

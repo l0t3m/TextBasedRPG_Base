@@ -40,7 +40,7 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // CONSTRUCTORS:
-        public Room(string name) // normal room (no enemies nor safezone)
+        public Room(string name) // neutral room (no enemies nor safezone)
         {
             Name = name;
             this.isNeutral = true;

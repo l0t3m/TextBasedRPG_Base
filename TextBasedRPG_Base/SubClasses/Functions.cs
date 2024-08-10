@@ -17,7 +17,7 @@ namespace TextBasedRPG_Base.SubClasses
                 SceneManager.currentRoom.status, 
                 SceneManager.currentRoom.statusColor);
 
-            Console.WriteLine(SceneManager.currentRoom.Description);
+            //Console.WriteLine(SceneManager.currentRoom.Description); // debug - uncomment once done
 
             if (SceneManager.currentRoom.ConnectedRooms.Length > 1)
             {
@@ -52,12 +52,19 @@ namespace TextBasedRPG_Base.SubClasses
         // Combat:
         public static void PrintFight()
         {
-            Functions.PrintAndColor($"{SceneManager.player.name} [lvl.{SceneManager.player.level}]: {SceneManager.player.HP} HP | {SceneManager.player.baseDMG} DMG", $"{SceneManager.player.name}", ConsoleColor.Magenta);
-            Functions.PrintAndColor($"{SceneManager.currentEnemy.name} [lvl.{SceneManager.currentEnemy.level}]: {SceneManager.currentEnemy.HP} HP | {SceneManager.currentEnemy.baseDMG} DMG", $"{SceneManager.currentEnemy.name}", ConsoleColor.DarkRed);
+            PrintFightMembers();
 
             Console.WriteLine("\nWhat action will you take?");
-            Functions.PrintAndColor($"1. Attack [{SceneManager.player.baseDMG} DMG]", $"{SceneManager.player.baseDMG} DMG", ConsoleColor.Red);
-            Console.WriteLine("2. Flee");
+            Console.WriteLine("1. Attack [Normal Attack]");
+            Console.WriteLine("2. Attack with a weapon");
+            Console.WriteLine("3. Use an Item");
+            Console.WriteLine("4. Flee");
+        }
+
+        public static void PrintFightMembers()
+        {
+            PrintAndColor($"{SceneManager.player.name} [lvl.{SceneManager.player.level}]: {SceneManager.player.HP} HP | {SceneManager.player.baseDMG} DMG", $"{SceneManager.player.name}", ConsoleColor.Magenta);
+            PrintAndColor($"{SceneManager.currentEnemy.name} [lvl.{SceneManager.currentEnemy.level}]: {SceneManager.currentEnemy.HP} HP | {SceneManager.currentEnemy.baseDMG} DMG", $"{SceneManager.currentEnemy.name}", ConsoleColor.DarkRed);
         }
 
 
