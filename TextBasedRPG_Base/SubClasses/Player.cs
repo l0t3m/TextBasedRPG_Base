@@ -107,7 +107,6 @@ namespace TextBasedRPG_Base.SubClasses
             return false;
         }
 
-
         /// <summary> Puts the given weapon in the desired index. </summary>
         /// <returns> The replaced weapon. </returns>
         public Weapon SwitchWeapon(Weapon newWeapon, int index)

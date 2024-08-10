@@ -192,7 +192,7 @@ namespace TextBasedRPG_Base.MainClasses
 
         private static void LookForEnemies()
         {
-            if (Random.Shared.Next(0, 100) < 85)
+            if (Random.Shared.Next(0, 100) < 95)
             {
                 if (Combat.StartFight(Enemy.GenerateNewEnemy()) == false)
                 {
@@ -202,8 +202,7 @@ namespace TextBasedRPG_Base.MainClasses
             else
             {
                 Console.WriteLine("You didn't find any enemies.");
-
-                Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+                Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
             }
         }
 

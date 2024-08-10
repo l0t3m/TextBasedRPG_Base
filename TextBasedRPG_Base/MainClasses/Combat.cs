@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TextBasedRPG_Base.SubClasses;
@@ -14,6 +15,7 @@ namespace TextBasedRPG_Base.MainClasses
         {
             SceneManager.currentEnemy = enemy;
             Functions.PrintAndColor($"While looking around for enemies, you encounter a {enemy.name}\n", $"{enemy.name}", ConsoleColor.DarkRed);
+            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
             Functions.PrintFight();
 
             while (SceneManager.player.isAlive && SceneManager.currentEnemy != null)
@@ -24,7 +26,6 @@ namespace TextBasedRPG_Base.MainClasses
                 try
                 {
                     int choice = int.Parse(Console.ReadLine()); Console.Clear();
-
                     switch (choice)
                     {
                         case 1:
@@ -32,8 +33,6 @@ namespace TextBasedRPG_Base.MainClasses
                         case 2:
                             StartWeaponAttack(); break;
                         case 3:
-                            StartUseItem(); break;
-                        case 4:
                             StartFlee(); Navigation.Explore(); break;
                         default:
                             Functions.PrintFight(); break; 
@@ -53,7 +52,7 @@ namespace TextBasedRPG_Base.MainClasses
             {
                 Weapon newW = Weapon.GenerateNewWeapon(SceneManager.currentEnemy.level);
 
-                Console.WriteLine("You found a sword!");
+                Console.WriteLine("You found a new weapon!");
                 newW.PrintWeapon();
 
                 SceneManager.player.AddWeapon(newW);
@@ -79,7 +78,16 @@ namespace TextBasedRPG_Base.MainClasses
 
             try
             {
+                int backChoice = SceneManager.player.weapons.Count(n => n != null) + 1;
+                Console.WriteLine($"| {backChoice}. Go back");
+
                 int choice = int.Parse(Console.ReadLine()); Console.Clear();
+
+                if (choice == backChoice)
+                {
+                    Functions.PrintFight(); return;
+                }
+
                 Weapon chosenWeapon = SceneManager.player.weapons[choice-1];
 
                 if (chosenWeapon != null)

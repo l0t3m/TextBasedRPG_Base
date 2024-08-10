@@ -11,7 +11,9 @@ namespace TextBasedRPG_Base.SubClasses
         Sword,
         Knife,
         Katana,
-        Machete
+        Machete,
+        Axe,
+        Spear
     }
 
     public class Weapon
@@ -31,7 +33,6 @@ namespace TextBasedRPG_Base.SubClasses
 
 
         // ----------------------------------- Generators: ----------------------------------- //
-
         public static Weapon GenerateNewWeapon(int level)
         {
             // Base Stats of each sword.
