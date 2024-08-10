@@ -15,14 +15,17 @@ namespace TextBasedRPG_Base.MainClasses
         {
             SceneManager.currentEnemy = enemy;
             Functions.PrintAndColor($"While looking around for enemies, you encounter a {enemy.name}\n", $"{enemy.name}", ConsoleColor.DarkRed);
-            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
-            Functions.PrintFight();
+            Console.WriteLine("Press enter to continue."); Console.ReadLine();
 
-            while (SceneManager.player.isAlive && SceneManager.currentEnemy != null)
+            bool fled = false;
+            int currentLvl = SceneManager.currentEnemy.level;
+
+            while (SceneManager.player.isAlive && SceneManager.currentEnemy != null && !fled)
             {
-                if (!SceneManager.currentEnemy.isAlive)
-                    break;
+                Console.Clear(); Functions.PrintFight();
 
+                if (SceneManager.currentEnemy == null)
+                    break;
                 try
                 {
                     int choice = int.Parse(Console.ReadLine()); Console.Clear();
@@ -33,7 +36,8 @@ namespace TextBasedRPG_Base.MainClasses
                         case 2:
                             StartWeaponAttack(); break;
                         case 3:
-                            StartFlee(); Navigation.Explore(); break;
+                            fled = true;
+                            StartFlee(); break;
                         default:
                             Functions.PrintFight(); break; 
                     }
@@ -46,14 +50,16 @@ namespace TextBasedRPG_Base.MainClasses
 
             if (SceneManager.player.isAlive == false)
                 return false;
+            
             Console.Clear();
 
-            if (Random.Shared.Next(0, 100) < 80 && SceneManager.currentEnemy != null)
+            if (Random.Shared.Next(0, 100) < 80 && fled == false)
             {
-                Weapon newW = Weapon.GenerateNewWeapon(SceneManager.currentEnemy.level);
-
+                Weapon newW = Weapon.GenerateNewWeapon(currentLvl);
                 Console.WriteLine("You found a new weapon!");
                 newW.PrintWeapon();
+
+                // insert menu, choose to pick up / replace or leave it
 
                 SceneManager.player.AddWeapon(newW);
                 Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
@@ -65,14 +71,14 @@ namespace TextBasedRPG_Base.MainClasses
         {
             SceneManager.player.AttackEnemy(SceneManager.player.baseDMG); Console.ReadLine();
 
-            StartEnemyAttack();
-            Console.Clear(); Functions.PrintFight();
+            if (SceneManager.currentEnemy != null)
+                StartEnemyAttack();
+            Console.Clear();
         }
 
         public static void StartWeaponAttack() 
         {
             Functions.PrintFightMembers();
-
             Console.WriteLine("\nEnter the number of the weapon you want to use");
             SceneManager.player.PrintWeapons();
 
@@ -80,16 +86,13 @@ namespace TextBasedRPG_Base.MainClasses
             {
                 int backChoice = SceneManager.player.weapons.Count(n => n != null) + 1;
                 Console.WriteLine($"| {backChoice}. Go back");
-
                 int choice = int.Parse(Console.ReadLine()); Console.Clear();
-
                 if (choice == backChoice)
                 {
                     Functions.PrintFight(); return;
                 }
 
                 Weapon chosenWeapon = SceneManager.player.weapons[choice-1];
-
                 if (chosenWeapon != null)
                 {
                     SceneManager.player.AttackEnemy(chosenWeapon);
@@ -101,8 +104,9 @@ namespace TextBasedRPG_Base.MainClasses
                 Console.Clear(); StartWeaponAttack();
             }
 
-            StartEnemyAttack();
-            Console.Clear(); Functions.PrintFight();
+            if (SceneManager.currentEnemy != null)
+                StartEnemyAttack();
+            Console.Clear();
         }
         
         public static void StartUseItem()
@@ -122,15 +126,10 @@ namespace TextBasedRPG_Base.MainClasses
             SceneManager.currentEnemy = null;
         }
 
-
-
         public static void StartEnemyAttack()
         {
-            if (SceneManager.currentEnemy.isAlive)
-            {
-                SceneManager.currentEnemy.AttackPlayer();
-                Console.ReadLine(); Console.Clear();
-            }
+            SceneManager.currentEnemy.AttackPlayer();
+            Console.ReadLine(); Console.Clear();
         }
     }
 }

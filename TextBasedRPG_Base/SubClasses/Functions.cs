@@ -92,7 +92,33 @@ namespace TextBasedRPG_Base.SubClasses
         // menus:
         public static void PrintMainMenu()
         {
-            Functions.PrintAndColor("Dictator of the house ^._.^", "^._.^", ConsoleColor.Magenta);
+            Console.WriteLine("             ▄▄");
+            Console.WriteLine("▀███▀▀▀██▄   ██          ██            ██");
+            Console.WriteLine("  ██    ▀██▄             ██            ██");
+            Console.WriteLine("  ██     ▀█████  ▄██▀████████ ▄█▀██▄ ██████  ▄██▀██▄▀███▄███");
+            Console.WriteLine("  ██      ██ ██ ██▀  ██  ██  ██   ██   ██   ██▀   ▀██ ██▀ ▀▀");
+            Console.WriteLine("  ██     ▄██ ██ ██       ██   ▄█████   ██   ██     ██ ██");
+            Console.WriteLine("  ██    ▄██▀ ██ ██▄    ▄ ██  ██   ██   ██   ██▄   ▄██ ██");
+            Console.WriteLine("▄████████▀ ▄████▄█████▀  ▀████████▀██▄ ▀████ ▀█████▀▄████▄");
+            Console.WriteLine("");
+            Console.WriteLine("    ______     ______        ______   __  __     ______    ");
+            Console.WriteLine("   /\\  __ \\   /\\  ___\\      /\\__  _\\ /\\ \\_\\ \\   /\\  ___\\   ");
+            Console.WriteLine("   \\ \\ \\/\\ \\  \\ \\  __\\      \\/_/\\ \\/ \\ \\  __ \\  \\ \\  __\\   ");
+            Console.WriteLine("    \\ \\_____\\  \\ \\_\\           \\ \\_\\  \\ \\_\\ \\_\\  \\ \\_____\\ ");
+            Console.WriteLine("     \\/_____/   \\/_/            \\/_/   \\/_/\\/_/   \\/_____/ ");
+            Console.WriteLine("");
+            Console.WriteLine("     ▀████▀  ▀████▀▀");
+            Console.WriteLine("       ██      ██");
+            Console.WriteLine("       ██      ██    ▄██▀██▄▀███  ▀███  ▄██▀███ ▄▄█▀██");
+            Console.WriteLine("       ██████████   ██▀   ▀██ ██    ██  ██   ▀▀▄█▀   ██");
+            Console.WriteLine("       ██      ██   ██     ██ ██    ██  ▀█████▄██▀▀▀▀▀▀");
+            Console.WriteLine("       ██      ██   ██▄   ▄██ ██    ██  █▄   ████▄    ▄");
+            Console.WriteLine("     ▄████▄  ▄████▄▄ ▀█████▀  ▀████▀███▄██████▀ ▀█████▀");
+
+            Console.WriteLine();
+            Console.WriteLine("Welcome to my game! Please choose an option by writing the number below.");
+            Console.WriteLine();
+
             Console.WriteLine("1. New game");
             Console.WriteLine("2. Quit");
         }

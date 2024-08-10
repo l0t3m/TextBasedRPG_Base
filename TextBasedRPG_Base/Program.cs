@@ -9,16 +9,15 @@ Console.ForegroundColor = ConsoleColor.White;
 Navigation.SetupRooms();
 
 // temp: //
-SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
-SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
+//SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
+//SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
 
 
 bool isPlaying = true;
+SceneManager.MainMenu();
 
 while (isPlaying)
 {
-    //SceneManager.MainMenu();
-
     if (SceneManager.player.isAlive == true)
         Navigation.Explore();
     else
