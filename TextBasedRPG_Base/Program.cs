@@ -13,8 +13,8 @@ Navigation.SetupItems();
 
 //SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
 //SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
-SceneManager.player.AddItemPlayer(new Item("testItem", ItemEffect.InstantHeal));
-SceneManager.player.AddItemPlayer(new Item("testItem", ItemEffect.InstantHeal));
+//SceneManager.player.AddItemPlayer(new Item("testItem", ItemEffect.InstantHeal));
+//SceneManager.player.AddItemPlayer(new Item("testItem", ItemEffect.InstantHeal));
 
 while (true)
 {

@@ -94,7 +94,7 @@ namespace TextBasedRPG_Base.SubClasses
                 if (this.itemInventory[i] == oldItem)
                 {
                     this.itemInventory[i] = newItem;
-                    Functions.PrintAndColor($"Switched {oldItem.name} with {newItem.name}", newItem.name, ConsoleColor.Yellow);
+                    Functions.PrintAndColor($"Switched {oldItem.name} with {newItem.name}", null, ConsoleColor.Green);
                     return true;
                 }
             }
@@ -310,8 +310,7 @@ namespace TextBasedRPG_Base.SubClasses
         {
             SortItemInventory();
 
-
-            Console.WriteLine($"\nItems: [{itemInventory.Count(n => n != null)} / {itemInventorySlots}]");
+            Console.WriteLine($"\n--> ITEMS: [{itemInventory.Count(n => n != null)} / {itemInventorySlots}]");
 
             for ( int i = 0; i < itemInventorySlots; i++ )
             {
