@@ -44,6 +44,7 @@ namespace TextBasedRPG_Base.MainClasses
             SceneManager.currentRoom = DiningTable; // debug
             
             Koda.isBossRoom = true;
+            Koda.boss = new Boss("Koda", 280, 25, 25); // debug - change stats
             LivingRoom.isSafeZone = true;
 
             // Each room descriptions:
@@ -145,12 +146,18 @@ namespace TextBasedRPG_Base.MainClasses
                 {
                     Explore();
                 }
-                if (roomDict[choice].isBossRoom == true)
+                if (roomDict[choice].isBossRoom && roomDict[choice].boss.isAlive)
                 {
-                    // if player's level >= boss level, let in
-                    // else "Access denied, your level is too low."
-                    Functions.PrintAndColor("Acess denied, your level is too low.", null, ConsoleColor.DarkRed);
-                    Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+                    if (SceneManager.player.level >= roomDict[choice].boss.level)
+                    {
+                        SceneManager.currentEnemy = roomDict[choice].boss;
+                        Combat.StartBossFight();
+                    }
+                    else
+                    {
+                        Functions.PrintAndColor("Acess denied, your level is too low.", null, ConsoleColor.DarkRed);
+                        Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
+                    }
                 }
                 else
                     SceneManager.currentRoom = roomDict[choice];
@@ -220,7 +227,7 @@ namespace TextBasedRPG_Base.MainClasses
         }
 
 
-        // --------------------------------- Item Methods: --------------------------------- //
+        // ------------------------------ Sub-Menu Methods: ------------------------------ //
 
         private static void ItemFindingMenu(Item item)
         {
@@ -232,11 +239,8 @@ namespace TextBasedRPG_Base.MainClasses
                 switch (choice)
                 {
                     case 1:
-                        
                         if (SceneManager.player.IsItemInventoryFull())
-                        {
                             ItemSwitchMenu(item);
-                        }
                         else
                         {
                             Functions.PrintAndColor($"You nod slightly, a faint purr escaping as you move closer to the {item.name}, then delicately pick it up with your mouth.",
@@ -273,9 +277,7 @@ namespace TextBasedRPG_Base.MainClasses
                 Console.WriteLine($"| {backChoice}. Go back");
                 int choice = int.Parse(Console.ReadLine()); Console.Clear();
                 if (choice == backChoice)
-                {
                     ItemFindingMenu(newItem);
-                }
 
                 Item oldItem = SceneManager.player.itemInventory[choice - 1];
                 if (oldItem != null)
@@ -288,6 +290,66 @@ namespace TextBasedRPG_Base.MainClasses
             catch
             {
                 Console.Clear(); ItemSwitchMenu(newItem);
+            }
+        }
+
+        public static void WeaponFindingMenu(Weapon weapon)
+        {
+            Functions.PrintAndColor($"You let out a relieved purr after defeating the enemy, then suddenly spot a {weapon.name}.\n", weapon.name, ConsoleColor.Yellow);
+            weapon.PrintWeapon();
+            Functions.PrintWeaponFindingMenu();
+
+            try
+            {
+                int choice = int.Parse(Console.ReadLine());
+                Console.Clear();
+                switch (choice)
+                {
+                    case 1:
+                        if (SceneManager.player.IsWeaponInventoryFull())
+                        {
+                            WeaponSwitchMenu(weapon);
+                        }
+                        else
+                        {
+                            Console.WriteLine("You chose to take it");
+                            SceneManager.player.AddWeapon(weapon);
+                        }
+                        break;
+                    case 2:
+                        Console.WriteLine("You chose to leave it.");
+                        break;
+                    default:
+                        WeaponFindingMenu(weapon);
+                        break;
+                }
+            }
+            catch
+            {
+                Console.Clear(); WeaponFindingMenu(weapon);
+            }
+        }
+
+        private static void WeaponSwitchMenu(Weapon newWeapon)
+        {
+            Console.WriteLine($"Switching {newWeapon.name} with...?");
+            SceneManager.player.PrintWeapons();
+
+            try
+            {
+                int backChoice = SceneManager.player.weapons.Count(n => n != null) + 1;
+                Console.WriteLine($"| {backChoice}. Go back");
+                int choice = int.Parse(Console.ReadLine()); Console.Clear();
+                if (choice == backChoice)
+                    WeaponFindingMenu(newWeapon);
+
+                Weapon oldWeapon = SceneManager.player.weapons[choice - 1];
+                if (oldWeapon != null)
+                    SceneManager.player.SwitchWeapon(oldWeapon, newWeapon);
+            }
+            catch
+            {
+                Console.Clear(); WeaponSwitchMenu(newWeapon);
             }
         }
 

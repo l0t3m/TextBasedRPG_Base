@@ -11,10 +11,14 @@ Navigation.SetupItems();
 
 // temp: //
 
-//SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
-//SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
-//SceneManager.player.AddItemPlayer(new Item("testItem", ItemEffect.InstantHeal));
-//SceneManager.player.AddItemPlayer(new Item("testItem", ItemEffect.InstantHeal));
+SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
+SceneManager.player.AddWeapon(Weapon.GenerateNewWeapon(1));
+SceneManager.player.AddItemPlayer(new Item("testItem", ItemEffect.InstantHeal));
+SceneManager.player.AddItemPlayer(new Item("testItem", ItemEffect.InstantHeal));
+
+SceneManager.player.GainXP(10000);
+
+Console.Clear();
 
 while (true)
 {

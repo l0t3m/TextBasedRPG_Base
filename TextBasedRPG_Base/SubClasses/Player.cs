@@ -11,16 +11,17 @@ namespace TextBasedRPG_Base.SubClasses
     public class Player : Character
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
-        public int xp {  get; private set; }
+        public int xp { get; private set; } = 0;
         public int daysCounter { get; private set; } = 0;
 
         public int itemInventorySlots { get; private set; } = 3;
         public Item[] itemInventory { get; private set; }
+        public int weaponSlots { get; private set; } = 3;
 
-        public Player(string name) 
-            : base(name: name, maxHP: 10, baseDMG: 4, weaponSlots: 3)
+        public Player(string name, int weaponSlots = 3) 
+            : base(name: name, maxHP: 10, baseDMG: 4, weaponSlots: weaponSlots)
         {
-            this.xp = 0; // is this line rly needed here or replace to line 14?
+            this.weaponSlots = weaponSlots;
             itemInventory = new Item[itemInventorySlots]; // amount of slots
         }
 
@@ -125,48 +126,66 @@ namespace TextBasedRPG_Base.SubClasses
         public bool IsItemInventoryFull() // false if there's any empty space, true if full
         {
             SortItemInventory();
-            bool isFull = true;
             foreach (Item item in this.itemInventory)
             {
                 if (item == null)
-                {
                     return false;
-                }
             }
             return true;
-        }
-
-
-
-        // ------------------------------------ Combat Methods: ------------------------------------ //
-        public void AttackEnemy(int damage)
-        {
-            Enemy enemy = SceneManager.currentEnemy;
-
-            if (enemy != null)
-            {
-                Functions.PrintAndColor($"You've dealt {damage} DMG to the {enemy.name}.", $"{damage} DMG", ConsoleColor.Red);
-                enemy.RemoveHP(damage);
-
-                if (enemy.isAlive == false)
-                {
-                    this.AddHP((int)(enemy.maxHP / 4));
-                    this.GainXP(enemy.CalculateXPWorth());
-                }
-            }
-        }
-
-        public void AttackEnemy(Weapon weapon)
-        {
-            AttackEnemy(weapon.damage + this.baseDMG);
-
-            if (weapon.RemoveDurability())
-                this.DestroyWeapon(weapon);
         }
 
         
 
         // ------------------------------------ Weapon Methods: ------------------------------------ //
+
+        /// <summary> Adds a weapon to the first empty slot. </summary>
+        /// <returns> True if added successfully, False if there is no empty slots. </returns>
+        public bool AddWeapon(Weapon weapon)
+        {
+            SortWeapons();
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                if (this.weapons[i] == null)
+                {
+                    this.weapons[i] = weapon;
+                    Functions.PrintAndColor($"\nAdded {weapon.name} to your weapon inventory", null, ConsoleColor.Green);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool SwitchWeapon(Weapon oldWeapon, Weapon newWeapon)
+        {
+            SortWeapons();
+            for (int i = 0; i <= this.weapons.Length; i++)
+            {
+                if (this.weapons[i] == oldWeapon)
+                {
+                    this.weapons[i] = newWeapon;
+                    Functions.PrintAndColor($"Switched {oldWeapon.name} with {newWeapon.name}",
+                        null, ConsoleColor.Green);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void DestroyWeapon(Weapon targetWeapon)
+        {
+            for (int i = 0; i < this.weapons.Length; i++)
+            {
+                if (targetWeapon == this.weapons[i])
+                {
+                    this.weapons[i] = null;
+                    Functions.PrintAndColor($"\nYour {targetWeapon.name} has ran our of uses and broke", 
+                        null, ConsoleColor.DarkRed);
+                    break;
+                }
+            }
+            this.SortWeapons();
+        }
+
         public void SortWeapons() // returns an array with weapons sorted
         {
             Weapon[] weaponsArr = new Weapon[this.weapons.Length];
@@ -189,42 +208,45 @@ namespace TextBasedRPG_Base.SubClasses
             this.weapons = weaponsArr;
         }
 
-        /// <summary> Adds a weapon to the first empty slot. </summary>
-        /// <returns> True if added successfully, False if there is no empty slots. </returns>
-        public bool AddWeapon(Weapon weapon)
+        public bool IsWeaponInventoryFull()
         {
-            for (int i = 0; i < weapons.Length; i++)
+            SortWeapons();
+            foreach (Weapon weapon in this.weapons)
             {
-                if (this.weapons[i] == null)
-                {
-                    this.weapons[i] = weapon;
-                    return true;
-                }
+                if (weapon == null)
+                    return false;
             }
-            return false;
+            return true;
         }
 
-        /// <summary> Puts the given weapon in the desired index. </summary>
-        /// <returns> The replaced weapon. </returns>
-        public Weapon SwitchWeapon(Weapon newWeapon, int index)
-        {
-            Weapon oldWeapon = this.weapons[index];
-            this.weapons[index] = newWeapon;
-            return oldWeapon;
-        }
 
-        public void DestroyWeapon(Weapon targetWeapon)
+
+        // ------------------------------------ Combat Methods: ------------------------------------ //
+        public void AttackEnemy(int damage)
         {
-            for (int i = 0; i < this.weapons.Length; i++)
+            Enemy enemy = SceneManager.currentEnemy;
+
+            if (enemy != null)
             {
-                if (targetWeapon == this.weapons[i])
+                Functions.PrintAndColor($"You've dealt {damage} DMG to the {enemy.name}.", $"{damage} DMG", ConsoleColor.Red);
+                enemy.RemoveHP(damage);
+
+                if (enemy.isAlive == false)
                 {
-                    this.weapons[i] = null;
-                    break;
+                    this.AddHP((int)(enemy.maxHP / 4));
+                    this.GainXP(enemy.CalculateXPWorth());
                 }
             }
-            this.SortWeapons();
-        }
+        } // is it used?
+
+        public void AttackEnemy(Weapon weapon)
+        {
+            AttackEnemy(weapon.damage + this.baseDMG);
+
+            if (weapon.RemoveDurability())
+                this.DestroyWeapon(weapon);
+        } // is it used?
+
 
 
 
@@ -239,7 +261,7 @@ namespace TextBasedRPG_Base.SubClasses
             return CalculateNextLevelXP() - this.xp;
         }
 
-        private void GainXP(int xpAmount)
+        public void GainXP(int xpAmount)
         {
             this.xp += xpAmount;
             int xpDif = CalculateUntilNextLevelXP();
@@ -250,7 +272,7 @@ namespace TextBasedRPG_Base.SubClasses
                 LevelUp();
                 xpDif = CalculateUntilNextLevelXP();        
             }
-        }
+        } // debug - change to private
 
         private void LevelUp()
         {
@@ -294,7 +316,6 @@ namespace TextBasedRPG_Base.SubClasses
         public void PrintWeapons()
         {
             SortWeapons();
-
             Console.WriteLine($"\n--> WEAPONS: [{weapons.Count(n => n != null)} / {weapons.Length}]");
             
             for ( int i = 0; i < weapons.Length; i++ )
@@ -309,17 +330,15 @@ namespace TextBasedRPG_Base.SubClasses
         public void PrintItems()
         {
             SortItemInventory();
-
             Console.WriteLine($"\n--> ITEMS: [{itemInventory.Count(n => n != null)} / {itemInventorySlots}]");
 
             for ( int i = 0; i < itemInventorySlots; i++ )
             {
                 if (itemInventory[i] != null)
                 {
-                    Console.WriteLine($"| {i + 1}. {itemInventory[i].name}: {itemInventory[i].effect}");
+                    Console.WriteLine($"| {i + 1}. {itemInventory[i].name} - {itemInventory[i].GetEffect()}");
                 }
             }
-            // items
         }
     }
 }

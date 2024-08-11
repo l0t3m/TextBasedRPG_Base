@@ -56,16 +56,61 @@ namespace TextBasedRPG_Base.MainClasses
             if (Random.Shared.Next(0, 100) < 80 && fled == false)
             {
                 Weapon newW = Weapon.GenerateNewWeapon(currentLvl);
-                Console.WriteLine("You found a new weapon!");
-                newW.PrintWeapon();
-
-                // insert menu, choose to pick up / replace or leave it
-
-                SceneManager.player.AddWeapon(newW);
+                Navigation.WeaponFindingMenu(newW);
                 Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
             }
             return true;
         }
+
+        public static bool StartBossFight()
+        {
+            //Functions.PrintBossDialog(); // debug - uncomment to add dialog
+
+            while (SceneManager.player.isAlive)
+            {
+                Console.Clear(); Functions.PrintBossFight();
+                if (SceneManager.currentEnemy == null)
+                    break;
+
+                try
+                {
+                    int choice = int.Parse(Console.ReadLine()); Console.Clear();
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine("normal attack");
+                            StartNormalAttack();
+                            break;
+                        case 2:
+                            Console.WriteLine("weapon attack");
+                            StartWeaponAttack();
+                            break;
+                        case 3:
+                            Console.WriteLine("use item");
+                            // use item
+                            break;
+                        default:
+                            Functions.PrintBossFight(); break;
+                    }
+                }
+                catch
+                {
+                    Console.Clear(); Functions.PrintBossFight();
+                }
+            }
+
+            if (SceneManager.player.isAlive == false)
+                return false;
+
+            if (SceneManager.currentEnemy.isAlive == false)
+            {
+                SceneManager.GameWon();
+            }
+
+            Console.ReadLine(); Console.Clear();
+            return true;
+        }
+
 
         public static void StartNormalAttack() 
         {
@@ -79,6 +124,7 @@ namespace TextBasedRPG_Base.MainClasses
         public static void StartWeaponAttack() 
         {
             Functions.PrintFightMembers();
+            
             Console.WriteLine("\nEnter the number of the weapon you want to use");
             SceneManager.player.PrintWeapons();
 
@@ -88,9 +134,7 @@ namespace TextBasedRPG_Base.MainClasses
                 Console.WriteLine($"| {backChoice}. Go back");
                 int choice = int.Parse(Console.ReadLine()); Console.Clear();
                 if (choice == backChoice)
-                {
                     Functions.PrintFight(); return;
-                }
 
                 Weapon chosenWeapon = SceneManager.player.weapons[choice-1];
                 if (chosenWeapon != null)
@@ -111,7 +155,9 @@ namespace TextBasedRPG_Base.MainClasses
         
         public static void StartUseItem()
         {
-
+            // show the list of item, choose 1
+            // apply to boss
+            // WIP
         }
 
         public static void StartFlee()

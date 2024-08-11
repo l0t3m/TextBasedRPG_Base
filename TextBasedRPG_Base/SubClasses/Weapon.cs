@@ -72,7 +72,6 @@ namespace TextBasedRPG_Base.SubClasses
                 damage: (int)(baseDMG + level * 0.5)
                 );
         }
-
         private static string GenerateName()
         {
             var values = Enum.GetValues<WeaponType>();

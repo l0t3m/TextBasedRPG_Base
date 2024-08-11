@@ -20,7 +20,7 @@ namespace TextBasedRPG_Base.MainClasses
         public int level { protected set; get; }
 
 
-        public Character(string name, int maxHP, int baseDMG, Weapon[] weapons, int level) // for Boss class.
+        public Character(string name, int maxHP, int baseDMG, int level, bool isNPC = true) // for Boss and Enemy classes.
         {
             this.name = name;
             this.maxHP = maxHP;
@@ -30,10 +30,9 @@ namespace TextBasedRPG_Base.MainClasses
 
             this.baseDMG = baseDMG;
             this.weapons = weapons;
-            // item
         }
 
-        public Character(string name, int maxHP, int baseDMG, int weaponSlots) // for Player class.
+        public Character(string name, int maxHP, int baseDMG, int weaponSlots) // for Player class
         {
             this.name = name;
             this.maxHP = maxHP;
@@ -43,7 +42,6 @@ namespace TextBasedRPG_Base.MainClasses
 
             this.baseDMG = baseDMG;
             this.weapons = new Weapon[weaponSlots];
-            // item
         }
 
 

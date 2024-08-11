@@ -49,6 +49,16 @@ namespace TextBasedRPG_Base.MainClasses
             MainMenu();
         }
 
+        public static void GameWon()
+        {
+            Console.WriteLine("You won");
+            Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
+
+            // add a story about the next levels
+            // the player just feels like its the end but it still needs to defeat mini and hatol
+        }
+
+
         public static void CharacterCreation()
         {
             int retryCounter = 0;

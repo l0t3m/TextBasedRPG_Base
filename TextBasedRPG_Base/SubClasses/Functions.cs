@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using TextBasedRPG_Base.MainClasses;
@@ -30,7 +31,7 @@ namespace TextBasedRPG_Base.SubClasses
 
             Console.WriteLine("\nWhat would you like to do?");
             Console.WriteLine("1. Examine the room");
-            Console.WriteLine("2. Check stats");
+            Console.WriteLine("2. View stats and inventory");
             Console.WriteLine("3. Leave the room");
 
             if (SceneManager.currentRoom.discoveredStatus)
@@ -66,7 +67,6 @@ namespace TextBasedRPG_Base.SubClasses
         public static void PrintFight()
         {
             PrintFightMembers();
-
             Console.WriteLine("\nWhat action will you take?");
             Console.WriteLine("1. Attack [Normal Attack]");
             Console.WriteLine("2. Attack with a weapon");
@@ -79,6 +79,39 @@ namespace TextBasedRPG_Base.SubClasses
             PrintAndColor($"{SceneManager.currentEnemy.name} [lvl.{SceneManager.currentEnemy.level}]: {SceneManager.currentEnemy.HP} HP | {SceneManager.currentEnemy.baseDMG} DMG", $"{SceneManager.currentEnemy.name}", ConsoleColor.DarkRed);
         }
 
+        public static void PrintBossFight()
+        {
+            PrintFightMembers();
+
+            Console.WriteLine("\nWhat action will you take?");
+            Console.WriteLine("1. Attack [Normal Attack]");
+            Console.WriteLine("2. Attack with a weapon");
+            Console.WriteLine("3. Use item");
+        }
+
+        public static void PrintBossDialog()
+        {
+            Console.Write("You resolved to summon your bravery and confront Koda,"); Console.ReadLine();
+            Console.Write("With your tail held high and whiskers twitching,"); Console.ReadLine();
+            Console.Write("Despite being just a tiny cat..."); Console.ReadLine();
+            PrintAndColor("you’re determined to put an end to Hatol’s tyranny.", null, ConsoleColor.DarkRed); Console.ReadLine();
+
+            PrintAndColor($"Koda lifts his head, locking eyes with you as you enter his territory. \nA low growl rumbles from his throat as he stands, baring his teeth.",
+                "Koda", ConsoleColor.DarkRed);
+
+            Console.WriteLine("\nPress enter to start the fight."); Console.ReadLine();
+
+        }
+
+        public static void PrintWeaponFindingMenu()
+        {
+            Console.WriteLine("\nWhat would you like to do?");
+            if (!SceneManager.player.IsWeaponInventoryFull())
+                Console.WriteLine("1. Take it");
+            else
+                Console.WriteLine("1. Replace it with one of your weapons [Inventory's full]");
+            Console.WriteLine("2. Leave it");
+        }
 
 
         // Other:

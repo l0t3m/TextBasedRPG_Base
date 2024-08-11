@@ -29,6 +29,7 @@ namespace TextBasedRPG_Base.MainClasses
         public int minLevel { get; set; }
         public int maxLevel { get; set; }
         public bool isBossRoom { get; set; }
+        public Boss boss { get; set; }
 
 
         // Item related:
@@ -91,7 +92,7 @@ namespace TextBasedRPG_Base.MainClasses
         private string GetStatus()
         {
             if (isBossRoom)
-                return ($"[Boss lvl.-]");
+                return ($"[Boss lvl.{boss.level}]");
             if (discoveredStatus) //uppercase the first letter
             {
                 if (isSafeZone)

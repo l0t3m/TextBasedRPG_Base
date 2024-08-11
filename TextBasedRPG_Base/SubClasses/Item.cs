@@ -9,8 +9,8 @@ namespace TextBasedRPG_Base.SubClasses
     public enum ItemEffect
     {
         InstantHeal,
-        InstantDamage,
-        Distract
+        InstantDamage
+        //Distract
     }
 
     public class Item
@@ -25,12 +25,27 @@ namespace TextBasedRPG_Base.SubClasses
             this.effect = effect;
         }
 
-
         // ----------------------------------- Generators: ----------------------------------- //
 
-        public string GetEffect(ItemEffect effect)
+        public string GetEffect()
         {
-            return "";
+            int pos = 0;
+            string effectString = this.effect.ToString();
+            for (int i = 0; i < effectString.Length; i++)
+            {
+                if (i != 0 && char.IsUpper(effectString[i]))
+                    pos = i;
+            }
+            if (pos == 0)
+                return effectString;
+
+            return effectString.Substring(0, pos) + ' ' + effectString.Substring(pos, effectString.Length - pos);
+        }
+
+        // ------------------------------------- TEMP: ------------------------------------- //
+        public void PrintItem()
+        {
+            Console.WriteLine($"|  {name} - {this.GetEffect()} effect");
         }
     }
 }

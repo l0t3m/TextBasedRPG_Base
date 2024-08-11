@@ -18,8 +18,8 @@ namespace TextBasedRPG_Base.SubClasses
     public class Enemy : Character
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
-        private Enemy(string name, int maxHP, int baseDMG, int level) 
-            : base(name, maxHP, baseDMG, null, level) 
+        protected Enemy(string name, int maxHP, int baseDMG, int level) 
+            : base(name, maxHP, baseDMG, level, true) 
         {
             this.name = name;
         }
@@ -38,34 +38,6 @@ namespace TextBasedRPG_Base.SubClasses
                 baseDMG: GenerateBaseDMG(level),
                 level: level
                 );
-        }
-
-
-
-        // ------------------------------------ Methods: ------------------------------------ //
-
-        public override void RemoveHP(int amount)
-        {
-            this.HP -= amount;
-
-            if (this.HP <= 0)
-            {
-                Functions.PrintAndColor($"\n{name} has died", null, ConsoleColor.DarkRed);
-                this.isAlive = false;
-                SceneManager.currentEnemy = null;
-            }
-        }
-
-        public void AttackPlayer()
-        {
-            Enemy enemy = SceneManager.currentEnemy;
-            Player player = SceneManager.player;
-
-            if (enemy != null)
-            {
-                Functions.PrintAndColor($"{enemy.name} has dealt {enemy.baseDMG} DMG to you.", $"{enemy.baseDMG} DMG", ConsoleColor.Red);
-                player.RemoveHP(enemy.baseDMG);
-            }
         }
 
         private static string GenerateName()
@@ -105,6 +77,33 @@ namespace TextBasedRPG_Base.SubClasses
                 baseDMG--;
 
             return (int)(baseDMG + (level * 0.1) + 0.85 * (level - 1));
+        }
+
+
+        // ------------------------------------ Methods: ------------------------------------ //
+
+        public override void RemoveHP(int amount)
+        {
+            this.HP -= amount;
+
+            if (this.HP <= 0)
+            {
+                Functions.PrintAndColor($"\n{name} has died", null, ConsoleColor.DarkRed);
+                this.isAlive = false;
+                SceneManager.currentEnemy = null;
+            }
+        }
+
+        public void AttackPlayer()
+        {
+            Enemy enemy = SceneManager.currentEnemy;
+            Player player = SceneManager.player;
+
+            if (enemy != null)
+            {
+                Functions.PrintAndColor($"{enemy.name} has dealt {enemy.baseDMG} DMG to you.", $"{enemy.baseDMG} DMG", ConsoleColor.Red);
+                player.RemoveHP(enemy.baseDMG);
+            }
         }
 
         public int CalculateXPWorth()
