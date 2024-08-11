@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace TextBasedRPG_Base.MainClasses
 
         // Item related:
         public bool canItemsSpawn { get; set; } = true;
-        public string[] ItemsArr { get; set; } // transfer props into a class
+        public Item[] ItemsArr { get; private set; } = null;
 
         public ConsoleColor statusColor { get => GetStatusColor(); }
         public string status { get =>  GetStatus(); }
@@ -57,6 +58,32 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // ------------------------------------ Methods: ------------------------------------ //
+
+        public bool AddRoomItem(Item item) // returns true if successful, false if there is already an item
+        {
+            if (this.canItemsSpawn)
+            {
+                if (this.ItemsArr == null)
+                {
+                    this.ItemsArr = new Item[] { item };
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveRoomItem(Item item) // true if successful, false if didn't find an item / room can't spawn items
+        {
+            if (this.canItemsSpawn)
+            {
+                if (this.ItemsArr.Contains(item))
+                {
+                    this.ItemsArr = null;
+                    return true;
+                }
+            }
+            return false;
+        }
 
 
 

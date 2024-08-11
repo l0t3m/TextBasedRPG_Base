@@ -14,21 +14,136 @@ namespace TextBasedRPG_Base.SubClasses
         public int xp {  get; private set; }
         public int daysCounter { get; private set; } = 0;
 
+        public int itemInventorySlots { get; private set; } = 3;
+        public Item[] itemInventory { get; private set; }
+
         public Player(string name) 
             : base(name: name, maxHP: 10, baseDMG: 4, weaponSlots: 3)
         {
-            // needs to have an empty list of 5 items.
-            this.xp = 0;
+            this.xp = 0; // is this line rly needed here or replace to line 14?
+            itemInventory = new Item[itemInventorySlots]; // amount of slots
         }
 
 
 
-        // ------------------------------------ Methods: ------------------------------------ //
+        // ---------------------------------------  Methods: --------------------------------------- //
+
+        public override void RemoveHP(int amount)
+        {
+            this.HP -= amount;
+
+            if (this.HP <= 0)
+            {
+                Functions.PrintAndColor($"{name} has died", null, ConsoleColor.Magenta);
+                this.isAlive = false;
+            }
+        }
+
+        public void DoRest()
+        {
+            this.HP = this.maxHP;
+            daysCounter++;
+        }
+
+
+
+        // ------------------------------------- Item Methods: ------------------------------------- //
+        
+        public bool AddItemPlayer(Item item) // true if successfully added, false if failed.
+        {
+            SortItemInventory();
+            if (this.itemInventory.Count(n => n == null) != 0) // checks if there are any empty slots
+            {
+                for (int i = 0; i < this.itemInventorySlots; i++)
+                {
+                    if (this.itemInventory[i] == null) // checks if index is null (slot is empty)
+                    {
+                        this.itemInventory[i] = item;
+                        Functions.PrintAndColor($"\nAdded {item.name} to your item inventory", null, ConsoleColor.Green);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveItemPlayer(Item item) // true if removed successfully, false if failed.
+        {
+            SortItemInventory();
+            if (this.itemInventory.Contains(item))
+            {
+                for (int i = 0;i < this.itemInventorySlots;i++)
+                {
+                    if (this.itemInventory[i] == item)
+                    {
+                        this.itemInventory[i] = null;
+                        Functions.PrintAndColor($"\nRemoved {item.name} from your item inventory", null, ConsoleColor.DarkRed);
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
+
+        public bool SwitchItemPlayer(Item oldItem, Item newItem) // true if switched successfully, false if failed.
+        {
+            SortItemInventory();
+            for (int i = 0; i < this.itemInventorySlots; i++)
+            {
+                if (this.itemInventory[i] == oldItem)
+                {
+                    this.itemInventory[i] = newItem;
+                    Functions.PrintAndColor($"Switched {oldItem.name} with {newItem.name}", newItem.name, ConsoleColor.Yellow);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void SortItemInventory() // sorts the items, using every empty slot
+        {
+            Item[] itemsArr = new Item[this.itemInventorySlots];
+
+            foreach (Item item in this.itemInventory)
+            {
+                if (item != null)
+                {
+                    for (int i = 0; i <= this.itemInventorySlots; i++)
+                    {
+                        if (itemsArr[i] == null)
+                        {
+                            itemsArr[i] = item;
+                            break;
+                        }
+                    }
+                }
+            }
+            this.itemInventory = itemsArr;
+        }
+
+        public bool IsItemInventoryFull() // false if there's any empty space, true if full
+        {
+            SortItemInventory();
+            bool isFull = true;
+            foreach (Item item in this.itemInventory)
+            {
+                if (item == null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+
+        // ------------------------------------ Combat Methods: ------------------------------------ //
         public void AttackEnemy(int damage)
         {
             Enemy enemy = SceneManager.currentEnemy;
 
-            if (enemy != null) 
+            if (enemy != null)
             {
                 Functions.PrintAndColor($"You've dealt {damage} DMG to the {enemy.name}.", $"{damage} DMG", ConsoleColor.Red);
                 enemy.RemoveHP(damage);
@@ -49,25 +164,7 @@ namespace TextBasedRPG_Base.SubClasses
                 this.DestroyWeapon(weapon);
         }
 
-        public override void RemoveHP(int amount)
-        {
-            this.HP -= amount;
-
-            if (this.HP <= 0)
-            {
-                Functions.PrintAndColor($"{name} has died", null, ConsoleColor.Magenta);
-                this.isAlive = false;
-            }
-        }
-
-        //public void addItem(ITEM) { }
-        //public void removeItem(ITEM) { }
-
-        public void DoRest()
-        {
-            this.HP = this.maxHP;
-            daysCounter++;
-        }
+        
 
         // ------------------------------------ Weapon Methods: ------------------------------------ //
         public void SortWeapons() // returns an array with weapons sorted
@@ -196,9 +293,9 @@ namespace TextBasedRPG_Base.SubClasses
 
         public void PrintWeapons()
         {
-            this.SortWeapons();
+            SortWeapons();
 
-            Console.WriteLine($"\n--> WEAPONS: [{this.weapons.Count(n => n != null)} / {this.weapons.Length}]");
+            Console.WriteLine($"\n--> WEAPONS: [{weapons.Count(n => n != null)} / {weapons.Length}]");
             
             for ( int i = 0; i < weapons.Length; i++ )
             {
@@ -209,9 +306,20 @@ namespace TextBasedRPG_Base.SubClasses
             }
         }
 
-        private void PrintItems()
+        public void PrintItems()
         {
-            Console.WriteLine($"\nItems: [] WIP");
+            SortItemInventory();
+
+
+            Console.WriteLine($"\nItems: [{itemInventory.Count(n => n != null)} / {itemInventorySlots}]");
+
+            for ( int i = 0; i < itemInventorySlots; i++ )
+            {
+                if (itemInventory[i] != null)
+                {
+                    Console.WriteLine($"| {i + 1}. {itemInventory[i].name}: {itemInventory[i].effect}");
+                }
+            }
             // items
         }
     }

@@ -28,7 +28,7 @@ namespace TextBasedRPG_Base.MainClasses
         // ------------------------------------- Setup: ------------------------------------- //
         public static void SetupRooms()
         {
-            // ConnectedRooms to each room.
+            // Each room's connected rooms:
             EntranceArea.ConnectedRooms = [Koda, LivingRoom, DiningTable, Hallway];
             Koda.ConnectedRooms = [Toilet, Stairs, EntranceArea, DiningTable];
             Toilet.ConnectedRooms = [Koda];
@@ -42,48 +42,42 @@ namespace TextBasedRPG_Base.MainClasses
 
             //SceneManager.currentRoom = EntranceArea;
             SceneManager.currentRoom = DiningTable; // debug
+            
             Koda.isBossRoom = true;
             LivingRoom.isSafeZone = true;
 
-            // Description of the room.
+            // Each room descriptions:
             EntranceArea.Description = "This area is tidy, with the exception of a few shoes scattered by the door.";
             EntranceArea.ItemFindDescription = "Your eyes fall on a pair of shoes, and you decide to look inside one of them, finding";
-            
             Koda.Description = "A beautiful white Samoyed is staring at you with a look of clear dissatisfaction on its face.";
             Koda.canItemsSpawn = false;
-            
             Toilet.Description = "An ordinary white toilet sits facing a small sink, with a shelf positioned above it.";
-            Toilet.ItemFindDescription = "You move closer to the shelf but can't see what's on it. You carefully hop onto the shelf, eventually locating";
-            
+            Toilet.canItemsSpawn = false;
             Stairs.Description = "A long set of light gray marble stairs.";
             Stairs.canItemsSpawn = false;
-            
             LivingRoom.Description = "The room features an 'L' shaped black sofa, littered with scratch marks scattered across its surface. A small white coffee table sits at the center, and a large TV faces the sofa. The overall design of the space is modern, standing out in contrast to the more traditional decor of the other rooms on that floor.";
             LivingRoom.ItemFindDescription = "You spot two drawers in the coffee table; one of them is slightly open. You manage to slide it fully open and find";
-            
             DiningTable.Description = "A long white dining table, flanked by three white chairs on each side, with scratch marks covering the tops of the chairs. In the center of the table, a beautiful decorative bowl with a marble texture adds an elegant touch to the otherwise simple setup.";
             DiningTable.ItemFindDescription = "You glance inside the decorative bowl and spot";
-            
             Hallway.Description = "A short hallway connects several rooms, lined with a cozy carpet that adds warmth and comfort to the space.";
             Hallway.canItemsSpawn = false;
-            
             BackEntranceArea.Description = "A large wooden door with scratches on its lower part stands near two refrigerators, one black and one white.";
             BackEntranceArea.ItemFindDescription = "You spot a small gap behind the white refrigerator, and find";
-            
             Kitchen.Description = "The kitchen is filled with bright wood cabinets and a variety of appliances. A wide, short window lets in a gentle stream of light, brightening the space.";
             Kitchen.ItemFindDescription = "You hop onto the counter and explore the window sill, where you locate";
-            
             Miklat.Description = "A small, cramped room filled with shelves and cluttered with various items and junk.";
             Miklat.ItemFindDescription = "You scan the shelves and spot";
-
-
-            // Items of each room.
-            BackEntranceArea.ItemsArr = ["blue squicky ball"];
-            DiningTable.ItemsArr = ["eye drops"];
-            Miklat.ItemsArr = ["dog food"];
-            EntranceArea.ItemsArr = ["a shoe lace"];
         }
 
+        public static void SetupItems()
+        {
+            // add some kind of a generator to create random locations for items
+            // except for the rooms the canItemSpawn = false
+            EntranceArea.AddRoomItem(new Item("blue ball", ItemEffect.Distract));
+            DiningTable.AddRoomItem(new Item("eye drops", ItemEffect.InstantDamage));
+            LivingRoom.AddRoomItem(new Item("salmon treats", ItemEffect.InstantHeal));
+            Miklat.AddRoomItem(new Item("dog food", ItemEffect.InstantHeal));
+        }
 
 
         // ------------------------------------ Methods: ------------------------------------ //
@@ -169,6 +163,7 @@ namespace TextBasedRPG_Base.MainClasses
 
         private static void Examine()
         {
+            // Discovers the status of the room
             SceneManager.currentRoom.discoveredStatus = true;
 
             if (SceneManager.currentRoom.isDangerous == true)
@@ -178,14 +173,15 @@ namespace TextBasedRPG_Base.MainClasses
             else
                 Functions.PrintAndColor("This area looks safe, enemies can't reach this area.", "safe", SceneManager.currentRoom.statusColor);
 
-
-
-            if (SceneManager.currentRoom.ItemsArr != null && SceneManager.currentRoom.ItemsArr.Length > 0)
+            // Finding items if there are any
+            if (SceneManager.currentRoom.ItemsArr != null)
             {
-                Functions.PrintAndColor($"\n{SceneManager.currentRoom.ItemFindDescription} {SceneManager.currentRoom.ItemsArr[0]}.", SceneManager.currentRoom.ItemsArr[0], ConsoleColor.Yellow);
-                // add a condition to check what to do with the item found. + switch case
+                if (SceneManager.currentRoom.ItemsArr.Count(n => n == null) == 0)
+                {
+                    Console.WriteLine();
+                    ItemFindingMenu(SceneManager.currentRoom.ItemsArr[0]);
+                }
             }
-
 
             Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
         }
@@ -222,7 +218,79 @@ namespace TextBasedRPG_Base.MainClasses
             SceneManager.player.PrintStats();
             Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
         }
-        
+
+
+        // --------------------------------- Item Methods: --------------------------------- //
+
+        private static void ItemFindingMenu(Item item)
+        {
+            Functions.PrintItemFindingMenu();
+            try
+            {
+                int choice = int.Parse(Console.ReadLine());
+                Console.Clear();
+                switch (choice)
+                {
+                    case 1:
+                        
+                        if (SceneManager.player.IsItemInventoryFull())
+                        {
+                            ItemSwitchMenu(item);
+                        }
+                        else
+                        {
+                            Functions.PrintAndColor($"You nod slightly, a faint purr escaping as you move closer to the {item.name}, then delicately pick it up with your mouth.",
+                            item.name, ConsoleColor.Yellow);
+                            SceneManager.currentRoom.RemoveRoomItem(item);
+                            SceneManager.player.AddItemPlayer(item);
+                        }
+                        break;
+                    case 2:
+                        Functions.PrintAndColor($"You shake your head and walk away, leaving the {item.name} behind.",
+                            item.name, ConsoleColor.Yellow);
+                        break;
+                    default:
+                        ItemFindingMenu(item);
+                        break;
+                }
+            }
+            catch
+            {
+                Console.Clear(); ItemFindingMenu(item);
+            }
+        }
+
+        private static void ItemSwitchMenu(Item newItem)
+        {
+            Functions.PrintAndColor($"You nod slightly, a faint purr escaping as you move closer to the {newItem.name}, then delicately pick it up with your mouth.",
+                            newItem.name, ConsoleColor.Yellow);
+            Functions.PrintAndColor($"\nSwitching {newItem.name} with...?", newItem.name, ConsoleColor.Yellow);
+            SceneManager.player.PrintItems();
+
+            try
+            {
+                int backChoice = SceneManager.player.itemInventory.Count(n => n != null) + 1;
+                Console.WriteLine($"| {backChoice}. Go back");
+                int choice = int.Parse(Console.ReadLine()); Console.Clear();
+                if (choice == backChoice)
+                {
+                    ItemFindingMenu(newItem);
+                }
+
+                Item oldItem = SceneManager.player.itemInventory[choice - 1];
+                if (oldItem != null)
+                {
+                    SceneManager.player.SwitchItemPlayer(oldItem, newItem);
+                    SceneManager.currentRoom.RemoveRoomItem(newItem);
+                    SceneManager.currentRoom.AddRoomItem(oldItem);
+                }
+            }
+            catch
+            {
+                Console.Clear(); ItemSwitchMenu(newItem);
+            }
+        }
+
 
 
         // ------------------------------------- TEMP: ------------------------------------- //

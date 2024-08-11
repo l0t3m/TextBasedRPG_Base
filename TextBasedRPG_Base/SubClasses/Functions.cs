@@ -47,6 +47,19 @@ namespace TextBasedRPG_Base.SubClasses
             }
         }
 
+        public static void PrintItemFindingMenu()
+        {
+            PrintAndColor($"{SceneManager.currentRoom.ItemFindDescription} {SceneManager.currentRoom.ItemsArr[0].name}.", SceneManager.currentRoom.ItemsArr[0].name, ConsoleColor.Yellow);
+
+            Console.WriteLine("\nWhat would you like to do?");
+            if (!SceneManager.player.IsItemInventoryFull())
+                Console.WriteLine("1. Take it");
+            else
+                PrintAndColor("1. Take it and leave another item here. [Inventory's full]",
+                    "[Inventory's full]", ConsoleColor.Red);
+            Console.WriteLine("2. Leave it");
+        }
+
 
 
         // Combat:

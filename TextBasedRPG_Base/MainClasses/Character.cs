@@ -16,7 +16,6 @@ namespace TextBasedRPG_Base.MainClasses
         public int maxHP { protected set; get; }
         public int baseDMG { protected set; get; }
         public Weapon[] weapons { protected set; get; }
-        // item
         public bool isAlive { protected set; get; }
         public int level { protected set; get; }
 
