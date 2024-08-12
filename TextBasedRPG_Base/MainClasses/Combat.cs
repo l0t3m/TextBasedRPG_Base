@@ -79,8 +79,7 @@ namespace TextBasedRPG_Base.MainClasses
                             StartWeaponAttack();
                             break;
                         case 3:
-                            Console.WriteLine("use item");
-                            // use item
+                            StartUseItem();                            
                             break;
                         default:
                             Functions.PrintBossFight(); break;
@@ -104,7 +103,16 @@ namespace TextBasedRPG_Base.MainClasses
             SceneManager.player.AttackEnemy(SceneManager.player.baseDMG); Console.ReadLine();
 
             if (SceneManager.currentEnemy != null)
-                StartEnemyAttack();
+            {
+                if (!SceneManager.currentEnemy.isDistracted)
+                    StartEnemyAttack();
+                else
+                {
+                    Functions.PrintAndColor($"{SceneManager.currentEnemy.name} is distracted and didn't attack!", "is distracted");
+                    Console.ReadLine();
+                    SceneManager.currentEnemy.SetDistracted(false);
+                }
+            }
             Console.Clear();
         }
 
@@ -138,15 +146,54 @@ namespace TextBasedRPG_Base.MainClasses
             }
 
             if (SceneManager.currentEnemy != null)
-                StartEnemyAttack();
+            {
+                if (!SceneManager.currentEnemy.isDistracted)
+                    StartEnemyAttack();
+                else
+                {
+                    Functions.PrintAndColor($"{SceneManager.currentEnemy.name} is distracted and didn't attack!", "is distracted");
+                    Console.ReadLine();
+                    SceneManager.currentEnemy.SetDistracted(false);
+                }
+            }
+                
             Console.Clear();
         }
         
         public static void StartUseItem()
         {
-            // show the list of item, choose 1
-            // apply to boss
-            // WIP
+            Functions.PrintFightMembers();
+
+            Console.WriteLine("\nEnter the number of the item you want to use");
+            SceneManager.player.PrintItems();
+
+            try
+            {
+                int backChoice = SceneManager.player.itemInventory.Count(n => n != null) + 1;
+                Console.WriteLine($"| {backChoice}. Go back");
+                int choice = int.Parse(Console.ReadLine()); Console.Clear();
+                if (choice == backChoice)
+                {
+                    Functions.PrintFight();
+                    return;
+                }
+                Item item = SceneManager.player.itemInventory[choice - 1];
+                if (item != null)
+                {
+                    Functions.PrintAndColor($"You have used {item.name}!", item.name);
+                    if (item.UseItem())
+                        SceneManager.player.itemInventory[choice - 1] = null;
+                    else
+                        Functions.PrintAndColor($"Item failed to use!", null, ConsoleColor.Red);
+                    Console.ReadLine();
+                }
+            }
+            catch
+            {
+                Console.Clear(); StartUseItem();
+            }
+          
+            Console.Clear();
         }
 
         public static void StartFlee()

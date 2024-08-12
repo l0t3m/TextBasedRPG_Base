@@ -42,7 +42,7 @@ namespace TextBasedRPG_Base.MainClasses
 
             SceneManager.currentRoom = EntranceArea; // change if you want to start in a different room
             Koda.isBossRoom = true;
-            Koda.boss = new Boss("Koda", 75, 15, 15);
+            Koda.boss = new Boss("Koda", 125, 18, 15);
             LivingRoom.isSafeZone = true;
 
             // Each room descriptions:
@@ -70,6 +70,7 @@ namespace TextBasedRPG_Base.MainClasses
 
         public static void SetupItems()
         {
+            EntranceArea.AddRoomItem(new Item("blue ball", ItemEffect.Distract));
             DiningTable.AddRoomItem(new Item("eye drops", ItemEffect.InstantDamage));
             LivingRoom.AddRoomItem(new Item("salmon treats", ItemEffect.InstantHeal));
             Miklat.AddRoomItem(new Item("dog food", ItemEffect.InstantHeal));
@@ -245,7 +246,7 @@ namespace TextBasedRPG_Base.MainClasses
                             Functions.PrintAndColor($"You nod slightly, a faint purr escaping as you move closer to the {item.name}, then delicately pick it up with your mouth.",
                             item.name, ConsoleColor.Yellow);
                             SceneManager.currentRoom.RemoveRoomItem(item);
-                            SceneManager.player.AddItemPlayer(item);
+                            SceneManager.player.AddItem(item);
                         }
                         break;
                     case 2:

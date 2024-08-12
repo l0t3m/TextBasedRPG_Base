@@ -45,12 +45,13 @@ namespace TextBasedRPG_Base.MainClasses
 
 
         // ------------------------------------ Methods: ------------------------------------ //
-        public void AddHP(int amount)
+        public void AddHP(int amount, bool isFromItem = false)
         {
             this.HP += amount;
             if (this.HP > this.maxHP)
                 this.HP = this.maxHP;
-            Functions.PrintAndColor($"\n{name} has healed for {amount} HP by defeating an enemy.", null, ConsoleColor.Green);
+            if (!isFromItem)
+                Functions.PrintAndColor($"\n{name} has healed for {amount} HP by defeating an enemy.", null, ConsoleColor.Green);
         }
 
 

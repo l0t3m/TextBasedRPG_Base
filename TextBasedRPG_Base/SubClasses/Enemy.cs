@@ -11,6 +11,8 @@ namespace TextBasedRPG_Base.SubClasses
     public class Enemy : Character
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
+
+        public bool isDistracted { get; protected set; } = false; 
         protected Enemy(string name, int maxHP, int baseDMG, int level) 
             : base(name, maxHP, baseDMG, level, true) 
         {
@@ -102,6 +104,13 @@ namespace TextBasedRPG_Base.SubClasses
         public int CalculateXPWorth()
         {
             return this.level * 5 * Random.Shared.Next(1, 3);
+        }
+
+        public bool SetDistracted(bool distracted)
+        {
+            if (this.isDistracted == distracted) return false;
+            this.isDistracted = distracted;
+            return true;
         }
 
 

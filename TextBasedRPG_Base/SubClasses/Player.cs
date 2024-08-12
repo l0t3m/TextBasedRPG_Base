@@ -51,7 +51,7 @@ namespace TextBasedRPG_Base.SubClasses
 
         // ------------------------------------- Item Methods: ------------------------------------- //
         
-        public bool AddItemPlayer(Item item) // true if successfully added, false if failed.
+        public bool AddItem(Item item) // true if successfully added, false if failed.
         {
             SortItemInventory();
             if (this.itemInventory.Count(n => n == null) != 0) // checks if there are any empty slots
