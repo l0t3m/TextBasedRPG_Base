@@ -230,7 +230,12 @@ namespace TextBasedRPG_Base.SubClasses
             if (enemy != null)
             {
                 Functions.PrintAndColor($"You've dealt {damage} DMG to the {enemy.name}.", $"{damage} DMG", ConsoleColor.Red);
-                enemy.RemoveHP(damage);
+                
+                if (enemy is Boss) 
+                    ((Boss)(enemy)).RemoveHP(damage);
+                else
+                    enemy.RemoveHP(damage);
+
 
                 if (enemy.isAlive == false)
                 {
@@ -283,12 +288,10 @@ namespace TextBasedRPG_Base.SubClasses
             this.baseDMG = (int)(4 + this.level * 0.5);
             this.HP = maxHP;
 
-            //Console.WriteLine($"\nLevel up, You're now level {this.level}!");
-            //Console.WriteLine($"+{(int)(this.maxHP * 0.5)} maxHP");
-            //Console.WriteLine($"+{(int)(this.baseDMG * 0.75)} baseDMG");
-            //Console.WriteLine($"HP has restored to max");
-            //Console.WriteLine("\nPress enter to continue.");
-            // debug purpose - uncomment above
+            Functions.PrintAndColor($"\nLevel up, You're now level {this.level}!", $"{this.level}", ConsoleColor.Yellow);
+            Functions.PrintAndColor($"Stats improved", null);
+            Functions.PrintAndColor($"You've been healed", null, ConsoleColor.Green);
+            Console.WriteLine("\nPress enter to continue.");
         }
 
 
@@ -297,22 +300,24 @@ namespace TextBasedRPG_Base.SubClasses
         public override void PrintStats()
         {
             PrintInfo();
-
-            Console.WriteLine("\n--> STATS:");
-            Console.WriteLine($"| [lvl.{this.level}] {this.name}");
-            Console.WriteLine($"| {this.HP}/{this.maxHP} HP, {this.xp}/{CalculateNextLevelXP()} XP");
-            Console.WriteLine($"| {this.baseDMG} base DMG");
-
+            PrintPlayerStats();
             PrintWeapons();
-
             PrintItems();
         }
 
         private void PrintInfo()
         {
-            Console.WriteLine("--> Info:");
+            Console.WriteLine("--> INFO:");
             Console.WriteLine($"| Current in {SceneManager.currentRoom.Name}");
             Console.WriteLine($"| {this.daysCounter} days has passed");
+        }
+
+        public void PrintPlayerStats()
+        {
+            Console.WriteLine("\n--> STATS:");
+            Console.WriteLine($"| [lvl.{this.level}] {this.name}");
+            Console.WriteLine($"| {this.HP}/{this.maxHP} HP, {this.xp}/{CalculateNextLevelXP()} XP");
+            Console.WriteLine($"| {this.baseDMG} paw DMG");
         }
 
         public void PrintWeapons()

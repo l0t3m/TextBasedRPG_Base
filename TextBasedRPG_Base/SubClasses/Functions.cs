@@ -89,7 +89,7 @@ namespace TextBasedRPG_Base.SubClasses
             Console.WriteLine("1. New game");
             Console.WriteLine("2. Quit");
         }
-
+        
 
 
         // -------------------------------------- Combat: -------------------------------------- //
@@ -120,11 +120,11 @@ namespace TextBasedRPG_Base.SubClasses
 
         public static void PrintBossDialog()
         {
-            Console.Write("You resolved to summon your bravery and confront Koda,"); Console.ReadLine();
-            Console.Write("With your tail held high and whiskers twitching,"); Console.ReadLine();
-            Console.Write("Despite being just a tiny cat..."); Console.ReadLine();
-            PrintAndColor("you’re determined to put an end to Hatol’s tyranny.", null, ConsoleColor.DarkRed); Console.ReadLine();
-            PrintAndColor($"Koda lifts his head, locking eyes with you as you enter his territory. \nA low growl rumbles from his throat as he stands, baring his teeth.",
+            TypeLine("You resolved to summon your bravery and confront Koda,"); Console.ReadLine();
+            TypeLine("With your tail held high and whiskers twitching,"); Console.ReadLine();
+            TypeLine("Despite being just a tiny cat..."); Console.ReadLine();
+            PrintAndColorType("you’re determined to put an end to Hatol’s tyranny.", null, ConsoleColor.DarkRed); Console.ReadLine();
+            PrintAndColorType($"Koda lifts his head, locking eyes with you as you enter his territory. \nA low growl rumbles from his throat as he stands, baring his teeth.",
                 "Koda", ConsoleColor.DarkRed);
 
             Console.WriteLine("\nPress enter to start the fight."); Console.ReadLine();
@@ -159,6 +159,33 @@ namespace TextBasedRPG_Base.SubClasses
             Console.Write(text.Substring(index, targetText.Length));
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(text.Substring(index + targetText.Length, text.Length - index - targetText.Length));
+        }
+
+        public static void TypeLine(string line)
+        {
+            for (int i = 0; i < line.Length; i++)
+            {
+                Console.Write(line[i]);
+                Thread.Sleep(25); // Sleep for 150 milliseconds
+            }
+        }
+
+        public static void PrintAndColorType(string text, string targetText, ConsoleColor color = ConsoleColor.Blue)
+        {
+            if (targetText == null)
+            {
+                Console.ForegroundColor = color;
+                TypeLine(text + "\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
+            }
+            int index = text.IndexOf(targetText);
+            if (index == -1) return;
+            TypeLine(text.Substring(0, index));
+            Console.ForegroundColor = color;
+            TypeLine(text.Substring(index, targetText.Length));
+            Console.ForegroundColor = ConsoleColor.White;
+            TypeLine(text.Substring(index + targetText.Length, text.Length - index - targetText.Length) + '\n');
         }
     }
 }

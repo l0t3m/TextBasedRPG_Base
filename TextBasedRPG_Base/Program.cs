@@ -9,7 +9,14 @@ Console.ForegroundColor = ConsoleColor.White;
 Navigation.SetupRooms();
 Navigation.SetupItems();
 
-SceneManager.MainMenu();
+
+Player player = SceneManager.player;
+player.AddWeapon(Weapon.GenerateNewWeapon(15));
+player.AddWeapon(Weapon.GenerateNewWeapon(15));
+player.AddWeapon(Weapon.GenerateNewWeapon(15));
+player.GainXP(1960);
+Console.Clear();
+
 while (true)
 {
     if (SceneManager.player.isAlive == true)

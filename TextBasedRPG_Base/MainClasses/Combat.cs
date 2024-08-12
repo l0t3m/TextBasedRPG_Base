@@ -14,7 +14,7 @@ namespace TextBasedRPG_Base.MainClasses
         public static bool StartFight(Enemy enemy)
         {
             SceneManager.currentEnemy = enemy;
-            Functions.PrintAndColor($"While looking around for enemies, you encounter a [lvl.{enemy.level}] {enemy.name}\n", $"{enemy.name}", ConsoleColor.DarkRed);
+            Functions.PrintAndColor($"While looking around for enemies, you encounter a [lvl.{enemy.level}] {enemy.name}\n", $"[lvl.{enemy.level}] {enemy.name}", ConsoleColor.DarkRed);
             Console.WriteLine("Press enter to continue."); Console.ReadLine();
 
             bool fled = false;
@@ -51,7 +51,7 @@ namespace TextBasedRPG_Base.MainClasses
             if (SceneManager.player.isAlive == false)
                 return false;
             Console.Clear();
-            if (Random.Shared.Next(0, 100) < 30 && fled == false)
+            if (Random.Shared.Next(0, 100) < 80 && fled == false)
             {
                 Weapon newW = Weapon.GenerateNewWeapon(currentLvl);
                 Navigation.WeaponFindingMenu(newW);
@@ -64,22 +64,18 @@ namespace TextBasedRPG_Base.MainClasses
         {
             Functions.PrintBossDialog(); // comment if you don't want dialog
 
-            while (SceneManager.player.isAlive)
+            while (SceneManager.player.isAlive && SceneManager.currentEnemy != null)
             {
                 Console.Clear(); Functions.PrintBossFight();
-                if (SceneManager.currentEnemy == null)
-                    break;
                 try
                 {
                     int choice = int.Parse(Console.ReadLine()); Console.Clear();
                     switch (choice)
                     {
                         case 1:
-                            Console.WriteLine("normal attack");
                             StartNormalAttack();
                             break;
                         case 2:
-                            Console.WriteLine("weapon attack");
                             StartWeaponAttack();
                             break;
                         case 3:
@@ -98,13 +94,8 @@ namespace TextBasedRPG_Base.MainClasses
 
             if (SceneManager.player.isAlive == false)
                 return false;
-
-            if (SceneManager.currentEnemy.isAlive == false) // is this line necessary?
-            {
+            if (SceneManager.currentEnemy == null)
                 SceneManager.GameWon();
-            }
-
-            Console.ReadLine(); Console.Clear();
             return true;
         }
 
@@ -134,7 +125,6 @@ namespace TextBasedRPG_Base.MainClasses
                     Functions.PrintFight();
                     return;
                 }
-
                 Weapon chosenWeapon = SceneManager.player.weapons[choice-1];
                 if (chosenWeapon != null)
                 {

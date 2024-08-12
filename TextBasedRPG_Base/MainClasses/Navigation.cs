@@ -42,7 +42,7 @@ namespace TextBasedRPG_Base.MainClasses
 
             SceneManager.currentRoom = EntranceArea; // change if you want to start in a different room
             Koda.isBossRoom = true;
-            Koda.boss = new Boss("Koda", 90, 18, 15);
+            Koda.boss = new Boss("Koda", 75, 15, 15);
             LivingRoom.isSafeZone = true;
 
             // Each room descriptions:
@@ -149,8 +149,8 @@ namespace TextBasedRPG_Base.MainClasses
                     }
                     else
                     {
-                        Console.WriteLine("As you get closer to Koda, he grows more intimidating with each step. You shake your head, your tail drooping between your legs.");
-                        Functions.PrintAndColor("\nIn that moment, you decide to turn around and avoid facing him.", "turn around and avoid facing him", ConsoleColor.DarkRed);
+                        Functions.TypeLine("As you get closer to Koda, he grows more intimidating with each step. You shake your head, your tail drooping between your legs.");
+                        Functions.PrintAndColorType("\nIn that moment, you decide to turn around and avoid facing him.", "turn around and avoid facing him", ConsoleColor.DarkRed);
                         Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
                     }
                 }
@@ -331,7 +331,7 @@ namespace TextBasedRPG_Base.MainClasses
 
         private static void WeaponSwitchMenu(Weapon newWeapon)
         {
-            Console.WriteLine($"Switching {newWeapon.name} [{newWeapon.damage} DMG | {newWeapon.durability} Uses left] with...?");
+            Console.WriteLine($"Switching {newWeapon.name} [{newWeapon.damage} DMG | {newWeapon.durability} uses left] with...?");
             SceneManager.player.PrintWeapons();
 
             try
@@ -340,7 +340,10 @@ namespace TextBasedRPG_Base.MainClasses
                 Console.WriteLine($"| {backChoice}. Go back");
                 int choice = int.Parse(Console.ReadLine()); Console.Clear();
                 if (choice == backChoice)
+                {
+                    WeaponFindingMenu(newWeapon);
                     return;
+                }
 
                 Weapon oldWeapon = SceneManager.player.weapons[choice - 1];
                 if (oldWeapon != null)
