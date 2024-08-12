@@ -82,13 +82,13 @@ namespace TextBasedRPG_Base.SubClasses
 
         // ------------------------------------ Methods: ------------------------------------ //
 
-        public override void RemoveHP(int amount)
+        public void RemoveHP(int amount)
         {
             this.HP -= amount;
 
             if (this.HP <= 0)
             {
-                Functions.PrintAndColor($"\n{name} has died", null, ConsoleColor.DarkRed);
+                Functions.PrintAndColor($"\n{name} has died.", null, ConsoleColor.DarkRed);
                 this.isAlive = false;
                 SceneManager.currentEnemy = null;
             }
@@ -112,7 +112,7 @@ namespace TextBasedRPG_Base.SubClasses
         }
 
 
-        // ------------------------------------- TEMP: ------------------------------------- //
+        // -------------------------------- Personal Prints: -------------------------------- //
         public virtual void PrintStats()
         {
             Console.WriteLine("\n-----------------------------");

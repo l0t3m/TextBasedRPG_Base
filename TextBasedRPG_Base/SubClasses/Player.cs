@@ -22,26 +22,27 @@ namespace TextBasedRPG_Base.SubClasses
             : base(name: name, maxHP: 10, baseDMG: 4, weaponSlots: weaponSlots)
         {
             this.weaponSlots = weaponSlots;
-            itemInventory = new Item[itemInventorySlots]; // amount of slots
+            itemInventory = new Item[itemInventorySlots];
         }
 
 
 
         // ---------------------------------------  Methods: --------------------------------------- //
 
-        public override void RemoveHP(int amount)
+        public void RemoveHP(int amount)
         {
             this.HP -= amount;
 
             if (this.HP <= 0)
             {
-                Functions.PrintAndColor($"{name} has died", null, ConsoleColor.Magenta);
+                Functions.PrintAndColor($"\nYou've been knocked out.", null, ConsoleColor.Magenta);
                 this.isAlive = false;
             }
         }
 
         public void DoRest()
         {
+            this.isAlive = true;
             this.HP = this.maxHP;
             daysCounter++;
         }
@@ -237,7 +238,7 @@ namespace TextBasedRPG_Base.SubClasses
                     this.GainXP(enemy.CalculateXPWorth());
                 }
             }
-        } // is it used?
+        }
 
         public void AttackEnemy(Weapon weapon)
         {
@@ -245,7 +246,7 @@ namespace TextBasedRPG_Base.SubClasses
 
             if (weapon.RemoveDurability())
                 this.DestroyWeapon(weapon);
-        } // is it used?
+        }
 
 
 
@@ -291,7 +292,7 @@ namespace TextBasedRPG_Base.SubClasses
 
 
 
-        // ------------------------------------- TEMP: ------------------------------------- //
+        // -------------------------------- Personal Prints: -------------------------------- //
         public override void PrintStats()
         {
             PrintInfo();

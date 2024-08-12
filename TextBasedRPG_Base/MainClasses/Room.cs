@@ -11,44 +11,40 @@ namespace TextBasedRPG_Base.MainClasses
 {
     public class Room
     {
-        // -------------------------- Attributes and Constructors: -------------------------- //
+        // ----------------------------------- Attributes: ----------------------------------- //
         public string Name { get; }
         public string Description { get; set; }
         public string ItemFindDescription { get; set; }
-        public Room[] ConnectedRooms { get; set; } // add room descriptions
+        public Room[] ConnectedRooms { get; set; }
 
-        // status related:
+        // --------- Status related: --------- //
         public bool isDangerous { get; } = false;
         public bool isSafeZone { get; set; } = false;
         public bool isNeutral { get; } = false;
-        //public bool discoveredStatus { get; set; } = false; // right line
-        public bool discoveredStatus { get; set; } = true; // wrong line - debug purpose
+        public bool discoveredStatus { get; set; } = false; // change to true to instantly see each room status
+        public ConsoleColor statusColor { get => GetStatusColor(); }
+        public string status { get => GetStatus(); }
 
-
-        // Boss related:
+        // ---------- Boss related: ---------- //
         public int minLevel { get; set; }
         public int maxLevel { get; set; }
         public bool isBossRoom { get; set; }
         public Boss boss { get; set; }
 
-
-        // Item related:
+        // ---------- Item related: ---------- //
         public bool canItemsSpawn { get; set; } = true;
         public Item[] ItemsArr { get; private set; } = null;
 
-        public ConsoleColor statusColor { get => GetStatusColor(); }
-        public string status { get =>  GetStatus(); }
 
 
-
-        // CONSTRUCTORS:
-        public Room(string name) // neutral room (no enemies nor safezone)
+        // --------------------------------- Constructors: --------------------------------- //
+        public Room(string name) // for the neutral rooms
         {
             Name = name;
             this.isNeutral = true;
         }
 
-        public Room(string name, int minLevel, int maxLevel) // enemies
+        public Room(string name, int minLevel, int maxLevel) // for dangerous rooms
         {
             Name = name;
             this.isDangerous = true;
@@ -93,7 +89,7 @@ namespace TextBasedRPG_Base.MainClasses
         {
             if (isBossRoom)
                 return ($"[Boss lvl.{boss.level}]");
-            if (discoveredStatus) //uppercase the first letter
+            if (discoveredStatus)
             {
                 if (isSafeZone)
                     return ($"[SafeZone]");

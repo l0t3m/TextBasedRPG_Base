@@ -19,8 +19,7 @@ namespace TextBasedRPG_Base.MainClasses
         public bool isAlive { protected set; get; }
         public int level { protected set; get; }
 
-
-        public Character(string name, int maxHP, int baseDMG, int level, bool isNPC = true) // for Boss and Enemy classes.
+        public Character(string name, int maxHP, int baseDMG, int level, bool isNPC = true) // for Boss and Enemy classes
         {
             this.name = name;
             this.maxHP = maxHP;
@@ -31,7 +30,6 @@ namespace TextBasedRPG_Base.MainClasses
             this.baseDMG = baseDMG;
             this.weapons = weapons;
         }
-
         public Character(string name, int maxHP, int baseDMG, int weaponSlots) // for Player class
         {
             this.name = name;
@@ -55,35 +53,15 @@ namespace TextBasedRPG_Base.MainClasses
             Functions.PrintAndColor($"\n{name} has gained {amount} HP. ", null, ConsoleColor.Green);
         }
 
-        public virtual void RemoveHP(int amount)
-        {
-            this.HP -= amount;
-            
-            if (this.HP <= 0)
-            {
-                Functions.PrintAndColor($"\n{name} has died", null, ConsoleColor.DarkRed);
-                this.isAlive = false;
-            }
-        }
 
 
-
-        // ------------------------------------- TEMP: ------------------------------------- //
+        // -------------------------------- Personal Prints: -------------------------------- //
         public virtual void PrintStats()
         {
             Console.WriteLine("\n-----------------------------");
             Console.WriteLine($"{this.name} ({(this.isAlive == true ? "Alive" : "Dead")})");
             Console.WriteLine($"{this.HP} / {this.maxHP} HP");
             Console.WriteLine($"level {this.level}");
-            Console.WriteLine($"{this.weapons.Length} weapon slots");
-
-            foreach (Weapon weapon in this.weapons)
-            {
-                if (weapon != null)
-                    weapon.PrintWeapon();
-            }
-
-            // items
             Console.WriteLine("-----------------------------\n");
         }
     }

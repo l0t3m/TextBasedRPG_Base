@@ -14,7 +14,7 @@ namespace TextBasedRPG_Base.MainClasses
         // -------------------------- Attributes and Constructors: -------------------------- //
         private static Room EntranceArea = new Room("the entrance area");
         private static Room Koda = new Room("Koda's territory");
-        private static Room Toilet = new Room("the toilet", 18, 23);
+        private static Room Toilet = new Room("the toilet");
         private static Room Stairs = new Room("front of the stairs");
         private static Room LivingRoom = new Room("the living room");
         private static Room DiningTable = new Room("front of the dining area", 1, 3);
@@ -40,11 +40,9 @@ namespace TextBasedRPG_Base.MainClasses
             Kitchen.ConnectedRooms = [Hallway, Miklat, BackEntranceArea];
             Miklat.ConnectedRooms = [Hallway, BackEntranceArea, Kitchen];
 
-            //SceneManager.currentRoom = EntranceArea;
-            SceneManager.currentRoom = DiningTable; // debug
-            
+            SceneManager.currentRoom = EntranceArea; // change if you want to start in a different room
             Koda.isBossRoom = true;
-            Koda.boss = new Boss("Koda", 280, 25, 25); // debug - change stats
+            Koda.boss = new Boss("Koda", 100, 20, 16);
             LivingRoom.isSafeZone = true;
 
             // Each room descriptions:
@@ -72,9 +70,6 @@ namespace TextBasedRPG_Base.MainClasses
 
         public static void SetupItems()
         {
-            // add some kind of a generator to create random locations for items
-            // except for the rooms the canItemSpawn = false
-            EntranceArea.AddRoomItem(new Item("blue ball", ItemEffect.Distract));
             DiningTable.AddRoomItem(new Item("eye drops", ItemEffect.InstantDamage));
             LivingRoom.AddRoomItem(new Item("salmon treats", ItemEffect.InstantHeal));
             Miklat.AddRoomItem(new Item("dog food", ItemEffect.InstantHeal));
@@ -125,10 +120,9 @@ namespace TextBasedRPG_Base.MainClasses
             Functions.PrintRoom();
             Functions.PrintAndColor("\nYou chose to leave the room, which path will you take?", "leave");
 
+            Console.WriteLine($"1. Stay");
             Dictionary<int, Room> roomDict = new Dictionary<int, Room>();
             int counter = 2;
-
-            Console.WriteLine($"1. Stay");
             foreach (Room room in SceneManager.currentRoom.ConnectedRooms)
             {
                 roomDict.Add(counter, room);
@@ -197,10 +191,8 @@ namespace TextBasedRPG_Base.MainClasses
         {
             if (Random.Shared.Next(0, 100) < 95)
             {
-                if (Combat.StartFight(Enemy.GenerateNewEnemy()) == false)
-                {
-                    SceneManager.GameOver();
-                }
+                if (Combat.StartFight(Enemy.GenerateNewEnemy()) == false) // if player has died during enemy fight
+                    DoRespawn();
             }
             else
             {
@@ -212,9 +204,7 @@ namespace TextBasedRPG_Base.MainClasses
         private static void SafeZone()
         {
             SceneManager.player.DoRest();
-
-            Console.WriteLine("You settled onto the couch, feeling relaxed and secure. As you closed your eyes, you quickly drifted off to sleep.");
-            Console.WriteLine("\nA day has passed...");
+            Functions.PrintAndColor("A day has passed...", null, ConsoleColor.DarkYellow);
             Functions.PrintAndColor("\nHP has been restored to max", null, ConsoleColor.Green);
             Functions.PrintAndColor("\nPress enter to wake up.", null, ConsoleColor.DarkGray);
             Console.ReadLine(); Console.Clear();
@@ -226,9 +216,17 @@ namespace TextBasedRPG_Base.MainClasses
             Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
         }
 
+        public static void DoRespawn()
+        {
+            Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
+
+            SceneManager.player.DoRest();
+            SceneManager.currentRoom = LivingRoom;
+        }
+
+
 
         // ------------------------------ Sub-Menu Methods: ------------------------------ //
-
         private static void ItemFindingMenu(Item item)
         {
             Functions.PrintItemFindingMenu();
@@ -352,10 +350,5 @@ namespace TextBasedRPG_Base.MainClasses
                 Console.Clear(); WeaponSwitchMenu(newWeapon);
             }
         }
-
-
-
-        // ------------------------------------- TEMP: ------------------------------------- //
-
     }
 }

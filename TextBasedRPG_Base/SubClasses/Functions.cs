@@ -10,7 +10,7 @@ namespace TextBasedRPG_Base.SubClasses
 {
     public static class Functions
     {
-        // Navigation:
+        // ------------------------------------- General: ------------------------------------- //
         public static void PrintRoom()
         {
             PrintAndColor(
@@ -18,16 +18,12 @@ namespace TextBasedRPG_Base.SubClasses
                 SceneManager.currentRoom.status, 
                 SceneManager.currentRoom.statusColor);
 
-            //Console.WriteLine(SceneManager.currentRoom.Description); // debug - uncomment once done
+            Console.WriteLine(SceneManager.currentRoom.Description); // Room description, comment if don't want it.
 
             if (SceneManager.currentRoom.ConnectedRooms.Length > 1)
-            {
                 PrintAndColor($"You notice {SceneManager.currentRoom.ConnectedRooms.Length} different paths to take.", SceneManager.currentRoom.ConnectedRooms.Length.ToString());
-            }
             else
-            {
                 PrintAndColor($"You notice a single path you can take.", "single");
-            }
 
             Console.WriteLine("\nWhat would you like to do?");
             Console.WriteLine("1. Examine the room");
@@ -61,81 +57,6 @@ namespace TextBasedRPG_Base.SubClasses
             Console.WriteLine("2. Leave it");
         }
 
-
-
-        // Combat:
-        public static void PrintFight()
-        {
-            PrintFightMembers();
-            Console.WriteLine("\nWhat action will you take?");
-            Console.WriteLine("1. Attack [Normal Attack]");
-            Console.WriteLine("2. Attack with a weapon");
-            Console.WriteLine("3. Flee");
-        }
-
-        public static void PrintFightMembers()
-        {
-            PrintAndColor($"{SceneManager.player.name} [lvl.{SceneManager.player.level}]: {SceneManager.player.HP} HP | {SceneManager.player.baseDMG} DMG", $"{SceneManager.player.name}", ConsoleColor.Magenta);
-            PrintAndColor($"{SceneManager.currentEnemy.name} [lvl.{SceneManager.currentEnemy.level}]: {SceneManager.currentEnemy.HP} HP | {SceneManager.currentEnemy.baseDMG} DMG", $"{SceneManager.currentEnemy.name}", ConsoleColor.DarkRed);
-        }
-
-        public static void PrintBossFight()
-        {
-            PrintFightMembers();
-
-            Console.WriteLine("\nWhat action will you take?");
-            Console.WriteLine("1. Attack [Normal Attack]");
-            Console.WriteLine("2. Attack with a weapon");
-            Console.WriteLine("3. Use item");
-        }
-
-        public static void PrintBossDialog()
-        {
-            Console.Write("You resolved to summon your bravery and confront Koda,"); Console.ReadLine();
-            Console.Write("With your tail held high and whiskers twitching,"); Console.ReadLine();
-            Console.Write("Despite being just a tiny cat..."); Console.ReadLine();
-            PrintAndColor("you’re determined to put an end to Hatol’s tyranny.", null, ConsoleColor.DarkRed); Console.ReadLine();
-
-            PrintAndColor($"Koda lifts his head, locking eyes with you as you enter his territory. \nA low growl rumbles from his throat as he stands, baring his teeth.",
-                "Koda", ConsoleColor.DarkRed);
-
-            Console.WriteLine("\nPress enter to start the fight."); Console.ReadLine();
-
-        }
-
-        public static void PrintWeaponFindingMenu()
-        {
-            Console.WriteLine("\nWhat would you like to do?");
-            if (!SceneManager.player.IsWeaponInventoryFull())
-                Console.WriteLine("1. Take it");
-            else
-                Console.WriteLine("1. Replace it with one of your weapons [Inventory's full]");
-            Console.WriteLine("2. Leave it");
-        }
-
-
-        // Other:
-        public static void PrintAndColor(string text, string targetText, ConsoleColor color = ConsoleColor.Blue)
-        {
-            if (targetText == null)
-            {
-                Console.ForegroundColor = color;
-                Console.WriteLine(text);
-                Console.ForegroundColor = ConsoleColor.White;
-                return;
-            }
-            int index = text.IndexOf(targetText);
-            if (index == -1) return;
-            Console.Write(text.Substring(0, index));
-            Console.ForegroundColor = color;
-            Console.Write(text.Substring(index, targetText.Length));
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(text.Substring(index + targetText.Length, text.Length - index - targetText.Length));
-        }
-    
-
-
-        // menus:
         public static void PrintMainMenu()
         {
             Console.WriteLine("             ▄▄");
@@ -167,6 +88,77 @@ namespace TextBasedRPG_Base.SubClasses
 
             Console.WriteLine("1. New game");
             Console.WriteLine("2. Quit");
+        }
+
+
+
+        // -------------------------------------- Combat: -------------------------------------- //
+        public static void PrintFight()
+        {
+            PrintFightMembers();
+            Console.WriteLine("\nWhat action will you take?");
+            Console.WriteLine("1. Attack [Normal Attack]");
+            Console.WriteLine("2. Attack with a weapon");
+            Console.WriteLine("3. Flee");
+        }
+
+        public static void PrintFightMembers()
+        {
+            PrintAndColor($"{SceneManager.player.name} [lvl.{SceneManager.player.level}]: {SceneManager.player.HP} HP | {SceneManager.player.baseDMG} DMG", $"{SceneManager.player.name}", ConsoleColor.Magenta);
+            PrintAndColor($"{SceneManager.currentEnemy.name} [lvl.{SceneManager.currentEnemy.level}]: {SceneManager.currentEnemy.HP} HP | {SceneManager.currentEnemy.baseDMG} DMG", $"{SceneManager.currentEnemy.name}", ConsoleColor.DarkRed);
+        }
+
+        public static void PrintBossFight()
+        {
+            PrintFightMembers();
+
+            Console.WriteLine("\nWhat action will you take?");
+            Console.WriteLine("1. Attack [Normal Attack]");
+            Console.WriteLine("2. Attack with a weapon");
+            Console.WriteLine("3. Use item");
+        }
+
+        public static void PrintBossDialog()
+        {
+            Console.Write("You resolved to summon your bravery and confront Koda,"); Console.ReadLine();
+            Console.Write("With your tail held high and whiskers twitching,"); Console.ReadLine();
+            Console.Write("Despite being just a tiny cat..."); Console.ReadLine();
+            PrintAndColor("you’re determined to put an end to Hatol’s tyranny.", null, ConsoleColor.DarkRed); Console.ReadLine();
+            PrintAndColor($"Koda lifts his head, locking eyes with you as you enter his territory. \nA low growl rumbles from his throat as he stands, baring his teeth.",
+                "Koda", ConsoleColor.DarkRed);
+
+            Console.WriteLine("\nPress enter to start the fight."); Console.ReadLine();
+
+        }
+
+        public static void PrintWeaponFindingMenu()
+        {
+            Console.WriteLine("\nWhat would you like to do?");
+            if (!SceneManager.player.IsWeaponInventoryFull())
+                Console.WriteLine("1. Take it");
+            else
+                Console.WriteLine("1. Replace it with one of your weapons [Inventory's full]");
+            Console.WriteLine("2. Leave it");
+        }
+
+
+        // -------------------------------- Functional Methods: -------------------------------- //
+        public static void PrintAndColor(string text, string targetText, ConsoleColor color = ConsoleColor.Blue)
+        {
+            if (targetText == null)
+            {
+                Console.ForegroundColor = color;
+                Console.WriteLine(text);
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
+            }
+            int index = text.IndexOf(targetText);
+            if (index == -1) return;
+            Console.Write(text.Substring(0, index));
+            Console.ForegroundColor = color;
+            Console.Write(text.Substring(index, targetText.Length));
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(text.Substring(index + targetText.Length, text.Length - index - targetText.Length));
         }
     }
 }

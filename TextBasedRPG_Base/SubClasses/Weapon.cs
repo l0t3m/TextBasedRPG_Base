@@ -92,7 +92,7 @@ namespace TextBasedRPG_Base.SubClasses
 
 
 
-        // ------------------------------------- TEMP: ------------------------------------- //
+        // -------------------------------- Personal Prints: -------------------------------- //
         public void PrintWeapon()
         {
             Console.WriteLine($"| {this.name}:");

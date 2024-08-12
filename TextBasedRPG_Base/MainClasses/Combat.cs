@@ -50,9 +50,7 @@ namespace TextBasedRPG_Base.MainClasses
 
             if (SceneManager.player.isAlive == false)
                 return false;
-            
             Console.Clear();
-
             if (Random.Shared.Next(0, 100) < 80 && fled == false)
             {
                 Weapon newW = Weapon.GenerateNewWeapon(currentLvl);
@@ -64,14 +62,13 @@ namespace TextBasedRPG_Base.MainClasses
 
         public static bool StartBossFight()
         {
-            //Functions.PrintBossDialog(); // debug - uncomment to add dialog
+            Functions.PrintBossDialog(); // comment if you don't want dialog
 
             while (SceneManager.player.isAlive)
             {
                 Console.Clear(); Functions.PrintBossFight();
                 if (SceneManager.currentEnemy == null)
                     break;
-
                 try
                 {
                     int choice = int.Parse(Console.ReadLine()); Console.Clear();
@@ -102,7 +99,7 @@ namespace TextBasedRPG_Base.MainClasses
             if (SceneManager.player.isAlive == false)
                 return false;
 
-            if (SceneManager.currentEnemy.isAlive == false)
+            if (SceneManager.currentEnemy.isAlive == false) // is this line necessary?
             {
                 SceneManager.GameWon();
             }
@@ -134,7 +131,10 @@ namespace TextBasedRPG_Base.MainClasses
                 Console.WriteLine($"| {backChoice}. Go back");
                 int choice = int.Parse(Console.ReadLine()); Console.Clear();
                 if (choice == backChoice)
-                    Functions.PrintFight(); return;
+                {
+                    Functions.PrintFight();
+                    return;
+                }
 
                 Weapon chosenWeapon = SceneManager.player.weapons[choice-1];
                 if (chosenWeapon != null)

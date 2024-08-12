@@ -10,14 +10,17 @@ namespace TextBasedRPG_Base.MainClasses
 {
     public static class SceneManager
     {
+        // ----------------------------------- Attributes: ----------------------------------- //
         public static Player player { get; private set; } = new Player("player");
         public static Enemy currentEnemy { get; set; }
         public static Room currentRoom { get; set; }
 
+
+
+        // ------------------------------------ Methods: ------------------------------------ //
         public static void MainMenu()
         {
             Functions.PrintMainMenu();
-
             try
             {
                 int choice = int.Parse(Console.ReadLine());
@@ -26,9 +29,8 @@ namespace TextBasedRPG_Base.MainClasses
                 switch (choice)
                 {
                     case 1:
-
                         CharacterCreation();
-                        //BackgroundStory(); // debug - uncomment once done
+                        BackgroundStory(); // comment if don't want the backstory
                         Navigation.Explore(); break;
                     case 2:
                         Environment.Exit(0); break;
@@ -53,11 +55,7 @@ namespace TextBasedRPG_Base.MainClasses
         {
             Console.WriteLine("You won");
             Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
-
-            // add a story about the next levels
-            // the player just feels like its the end but it still needs to defeat mini and hatol
         }
-
 
         public static void CharacterCreation()
         {
@@ -96,7 +94,6 @@ namespace TextBasedRPG_Base.MainClasses
                     Console.WriteLine("invalid name... try again.");
                     Console.WriteLine("Press enter to continue."); Console.ReadLine(); Console.Clear();
                 }
-
                 retryCounter++;
             }
 

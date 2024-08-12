@@ -25,8 +25,9 @@ namespace TextBasedRPG_Base.SubClasses
             this.effect = effect;
         }
 
-        // ----------------------------------- Generators: ----------------------------------- //
 
+
+        // ----------------------------------- Generators: ----------------------------------- //
         public string GetEffect()
         {
             int pos = 0;
@@ -42,7 +43,9 @@ namespace TextBasedRPG_Base.SubClasses
             return effectString.Substring(0, pos) + ' ' + effectString.Substring(pos, effectString.Length - pos);
         }
 
-        // ------------------------------------- TEMP: ------------------------------------- //
+
+
+        // -------------------------------- Personal Prints: -------------------------------- //
         public void PrintItem()
         {
             Console.WriteLine($"|  {name} - {this.GetEffect()} effect");
