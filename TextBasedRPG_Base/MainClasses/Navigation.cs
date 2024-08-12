@@ -19,9 +19,9 @@ namespace TextBasedRPG_Base.MainClasses
         private static Room LivingRoom = new Room("the living room");
         private static Room DiningTable = new Room("front of the dining area", 1, 3);
         private static Room Hallway = new Room("the hallway");
-        private static Room BackEntranceArea = new Room("the back entrance area", 7, 10);
-        private static Room Kitchen = new Room("the kitchen", 3, 7);
-        private static Room Miklat = new Room("the Miklat", 10, 15 );
+        private static Room BackEntranceArea = new Room("the back entrance area", 7, 9);
+        private static Room Kitchen = new Room("the kitchen", 4, 6);
+        private static Room Miklat = new Room("the Miklat", 10, 13);
 
 
 
@@ -42,7 +42,7 @@ namespace TextBasedRPG_Base.MainClasses
 
             SceneManager.currentRoom = EntranceArea; // change if you want to start in a different room
             Koda.isBossRoom = true;
-            Koda.boss = new Boss("Koda", 100, 20, 16);
+            Koda.boss = new Boss("Koda", 90, 18, 15);
             LivingRoom.isSafeZone = true;
 
             // Each room descriptions:
@@ -110,7 +110,7 @@ namespace TextBasedRPG_Base.MainClasses
             }
             catch
             {
-                Console.Clear(); Explore();
+                Console.Clear();
             }
         }
 
@@ -149,7 +149,8 @@ namespace TextBasedRPG_Base.MainClasses
                     }
                     else
                     {
-                        Functions.PrintAndColor("Acess denied, your level is too low.", null, ConsoleColor.DarkRed);
+                        Console.WriteLine("As you get closer to Koda, he grows more intimidating with each step. You shake your head, your tail drooping between your legs.");
+                        Functions.PrintAndColor("\nIn that moment, you decide to turn around and avoid facing him.", "turn around and avoid facing him", ConsoleColor.DarkRed);
                         Console.WriteLine("\nPress enter to continue."); Console.ReadLine(); Console.Clear();
                     }
                 }
@@ -330,7 +331,7 @@ namespace TextBasedRPG_Base.MainClasses
 
         private static void WeaponSwitchMenu(Weapon newWeapon)
         {
-            Console.WriteLine($"Switching {newWeapon.name} with...?");
+            Console.WriteLine($"Switching {newWeapon.name} [{newWeapon.damage} DMG | {newWeapon.durability} Uses left] with...?");
             SceneManager.player.PrintWeapons();
 
             try
@@ -339,7 +340,7 @@ namespace TextBasedRPG_Base.MainClasses
                 Console.WriteLine($"| {backChoice}. Go back");
                 int choice = int.Parse(Console.ReadLine()); Console.Clear();
                 if (choice == backChoice)
-                    WeaponFindingMenu(newWeapon);
+                    return;
 
                 Weapon oldWeapon = SceneManager.player.weapons[choice - 1];
                 if (oldWeapon != null)

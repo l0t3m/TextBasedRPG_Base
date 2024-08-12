@@ -9,6 +9,7 @@ Console.ForegroundColor = ConsoleColor.White;
 Navigation.SetupRooms();
 Navigation.SetupItems();
 
+SceneManager.MainMenu();
 while (true)
 {
     if (SceneManager.player.isAlive == true)

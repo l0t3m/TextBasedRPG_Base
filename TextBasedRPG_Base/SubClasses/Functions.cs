@@ -98,7 +98,7 @@ namespace TextBasedRPG_Base.SubClasses
             PrintFightMembers();
             Console.WriteLine("\nWhat action will you take?");
             Console.WriteLine("1. Attack [Normal Attack]");
-            Console.WriteLine("2. Attack with a weapon");
+            Console.WriteLine("2. Attack using a weapon");
             Console.WriteLine("3. Flee");
         }
 
@@ -114,7 +114,7 @@ namespace TextBasedRPG_Base.SubClasses
 
             Console.WriteLine("\nWhat action will you take?");
             Console.WriteLine("1. Attack [Normal Attack]");
-            Console.WriteLine("2. Attack with a weapon");
+            Console.WriteLine("2. Attack using a weapon");
             Console.WriteLine("3. Use item");
         }
 

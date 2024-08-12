@@ -50,7 +50,7 @@ namespace TextBasedRPG_Base.MainClasses
             this.HP += amount;
             if (this.HP > this.maxHP)
                 this.HP = this.maxHP;
-            Functions.PrintAndColor($"\n{name} has gained {amount} HP. ", null, ConsoleColor.Green);
+            Functions.PrintAndColor($"\n{name} has healed for {amount} HP by defeating an enemy.", null, ConsoleColor.Green);
         }
 
 

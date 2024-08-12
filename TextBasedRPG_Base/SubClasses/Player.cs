@@ -278,7 +278,8 @@ namespace TextBasedRPG_Base.SubClasses
         private void LevelUp()
         {
             this.level++;
-            this.maxHP = (int)(this.level * 3.75);
+            if (this.level != 2)
+                this.maxHP = (int)(this.level * 3.75);
             this.baseDMG = (int)(4 + this.level * 0.5);
             this.HP = maxHP;
 

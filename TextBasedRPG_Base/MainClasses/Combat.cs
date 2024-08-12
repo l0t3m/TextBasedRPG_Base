@@ -14,7 +14,7 @@ namespace TextBasedRPG_Base.MainClasses
         public static bool StartFight(Enemy enemy)
         {
             SceneManager.currentEnemy = enemy;
-            Functions.PrintAndColor($"While looking around for enemies, you encounter a {enemy.name}\n", $"{enemy.name}", ConsoleColor.DarkRed);
+            Functions.PrintAndColor($"While looking around for enemies, you encounter a [lvl.{enemy.level}] {enemy.name}\n", $"{enemy.name}", ConsoleColor.DarkRed);
             Console.WriteLine("Press enter to continue."); Console.ReadLine();
 
             bool fled = false;
@@ -51,7 +51,7 @@ namespace TextBasedRPG_Base.MainClasses
             if (SceneManager.player.isAlive == false)
                 return false;
             Console.Clear();
-            if (Random.Shared.Next(0, 100) < 80 && fled == false)
+            if (Random.Shared.Next(0, 100) < 30 && fled == false)
             {
                 Weapon newW = Weapon.GenerateNewWeapon(currentLvl);
                 Navigation.WeaponFindingMenu(newW);
@@ -107,7 +107,6 @@ namespace TextBasedRPG_Base.MainClasses
             Console.ReadLine(); Console.Clear();
             return true;
         }
-
 
         public static void StartNormalAttack() 
         {

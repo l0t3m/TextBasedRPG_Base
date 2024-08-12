@@ -8,13 +8,6 @@ using TextBasedRPG_Base.MainClasses;
 
 namespace TextBasedRPG_Base.SubClasses
 {
-    public enum EnemyType
-    {
-        Cockroach,
-        Cricket,
-        Snail
-    }
-
     public class Enemy : Character
     {
         // -------------------------- Attributes and Constructors: -------------------------- //
@@ -42,10 +35,10 @@ namespace TextBasedRPG_Base.SubClasses
 
         private static string GenerateName()
         {
-            var values = Enum.GetValues<EnemyType>();
-            var colors = new string[] { "Blue", "Red", "Brown", "Black" };
+            string[] enemyNames = ["Cricket", "Cockroach", "Ant", "Fly", "Mosquito"];
+            var colors = new string[] { "Dark", "Brown", "Black" };
 
-            return $"{colors[Random.Shared.Next(colors.Length)]} {values.GetValue(Random.Shared.Next(values.Length))}";
+            return $"{colors[Random.Shared.Next(colors.Length)]} {enemyNames[Random.Shared.Next(enemyNames.Length)]}";
         }
 
         /// <summary>
